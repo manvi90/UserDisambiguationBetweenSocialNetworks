@@ -8,12 +8,12 @@ package com.shareablee.users;
  */
 public class User {
 	
-	public User(String id) {
-		this.id = id;
+	public User(String emailid) {
+		this.emailId = emailid;
 	}
 	
-	public String getId() {
-		return id;
+	public String getEmailId() {
+		return emailId;
 	}
 	
 	public double getLikelihood() {
@@ -58,7 +58,7 @@ public class User {
 	public void setDemographic(Demographic demographic) {
 		this.demographic = demographic;
 	}
-	private String id;
+	private String emailId;
 	private double likelihood;
 	private String requestId;
 	private int status;

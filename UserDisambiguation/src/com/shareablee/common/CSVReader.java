@@ -14,11 +14,9 @@ import java.util.List;
  * 
  *
  */
-public class CSVReader<T> {
+public abstract class CSVReader<T> {
 	
-	public T parseLine(String inputLine) {
-		return null;
-	}
+	public abstract T parseLine(String inputLine);
 	
 	public List<T> getData(String filePath) {
 		

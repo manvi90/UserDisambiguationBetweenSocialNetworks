@@ -102,7 +102,7 @@ public class Social {
 	
 	private String id;
 	private String bio;
-	// ToDo: check
+	// TODO: check
 	private List<String> followers; 
 	private List<String> following;
 	private String socialMediaId;

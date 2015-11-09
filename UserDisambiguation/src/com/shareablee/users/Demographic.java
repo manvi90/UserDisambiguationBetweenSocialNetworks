@@ -32,8 +32,18 @@ public class Demographic {
 		return demographics_gender;
 	}
 	
-	public void setDemographics_gender(Gender demographics_gender) {
-		this.demographics_gender = demographics_gender;
+	public void setDemographics_gender(String gender) {
+		if(gender == null || gender.isEmpty()) {
+			this.demographics_gender = Gender.UNKNOWN;
+		} else {
+		switch(gender.toUpperCase()) {
+			case "FEMALE" : this.demographics_gender = Gender.FEMALE;
+			break;
+			case "MALE" : this.demographics_gender = Gender.MALE;
+			break;
+			default : this.demographics_gender =Gender.UNKNOWN;
+			}
+		}
 	}
 	
 	public Location getLocation() {

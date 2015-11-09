@@ -25,11 +25,11 @@ public class Location {
 		this.locationDeduced_deducedLocation = locationDeduced_deducedLocation;
 	}
 	
-	public double getLocationDeduced_likelihood() {
+	public String getLocationDeduced_likelihood() {
 		return locationDeduced_likelihood;
 	}
 	
-	public void setLocationDeduced_likelihood(double locationDeduced_likelihood) {
+	public void setLocationDeduced_likelihood(String locationDeduced_likelihood) {
 		this.locationDeduced_likelihood = locationDeduced_likelihood;
 	}
 	
@@ -130,7 +130,7 @@ public class Location {
 	}
 	private String locationGeneral;
 	private String locationDeduced_deducedLocation;
-	private double locationDeduced_likelihood;
+	private String locationDeduced_likelihood;
 	private String locationDeduced_normalizedLocation;
 	private String locationDeduced_city_deduced;
 	private String locationDeduced_city_name;
