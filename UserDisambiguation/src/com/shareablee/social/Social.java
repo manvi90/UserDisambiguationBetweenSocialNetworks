@@ -3,7 +3,6 @@
  */
 package com.shareablee.social;
 
-import java.util.List;
 
 /**
  * 
@@ -12,20 +11,20 @@ import java.util.List;
 public class Social {
 	
 	public Social(String id) { 
-		this.id = id;
+		this.emailId = id;
 	}
 	
 	public Social (String id, String socialMediaId) {
-		this.id = id;
+		this.emailId = id;
 		this.socialMediaId = socialMediaId;
 	}
 	
-	public String getId() {
-		return id;
+	public String getEmailId() {
+		return emailId;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.emailId = id;
 	}
 	
 	public String getBio() {
@@ -84,27 +83,27 @@ public class Social {
 		this.userName = userName;
 	}
 	
-	public List<String> getFollowers() {
+	public int getFollowers() {
 		return followers;
 	}
 	
-	public List<String> getFollowing() {
+	public void setFollowers(int followers) {
+		this.followers = followers;
+	}
+	
+	public int getFollowing() {
 		return following;
 	}
 	
-	public void addFollowers(String follower) {
-		this.followers.add(follower);
+	public void setFollowing(int following) {
+		this.following = following;
 	}
 	
-	public void addFollowing(String following) {
-		this.following.add(following);
-	}
-	
-	private String id;
+	private String emailId;
 	private String bio;
 	// TODO: check
-	private List<String> followers; 
-	private List<String> following;
+	private int followers; 
+	private int following;
 	private String socialMediaId;
 	private String rss;
 	private String typeId;

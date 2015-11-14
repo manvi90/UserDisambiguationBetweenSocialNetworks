@@ -23,6 +23,7 @@ public abstract class CSVReader<T> {
 		if(filePath.isEmpty()) throw new IllegalArgumentException("No file name specified");
 		List<T> retVal = new ArrayList<T>();
 		BufferedReader bufferedReader = null; 
+		int count = 0;
 		try {
 			bufferedReader = new BufferedReader(new FileReader(filePath));
 			String inputLine = "";
@@ -34,6 +35,8 @@ public abstract class CSVReader<T> {
 				if(t != null) {
 					retVal.add(t);
 				}
+				count++;
+				if(count > 1000) break;
 			}
 		}catch (FileNotFoundException ex) {
 			System.err.println(ex.getMessage());

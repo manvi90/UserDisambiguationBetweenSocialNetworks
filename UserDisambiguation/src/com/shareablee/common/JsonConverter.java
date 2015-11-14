@@ -1,4 +1,4 @@
-package com.shareablee.users;
+package com.shareablee.common;
 import com.google.gson.Gson;
 
 

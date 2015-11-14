@@ -3,6 +3,10 @@
  */
 package com.shareablee.common;
 
+import java.util.Iterator;
+import java.util.TreeSet;
+import java.util.Set;
+
 /**
  *
  */
@@ -128,6 +132,41 @@ public class Location {
 	public void setLocationDeduced_state_name(String locationDeduced_state_name) {
 		this.locationDeduced_state_name = locationDeduced_state_name;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder retVal = new StringBuilder();
+		Set<String> location = new TreeSet<String>();
+		
+		if(locationGeneral != null) location.add(locationGeneral);
+		if(locationDeduced_deducedLocation != null) location.add(locationDeduced_deducedLocation);
+		if(locationDeduced_normalizedLocation != null) location.add(locationDeduced_normalizedLocation);
+		if(locationDeduced_city_deduced != null) location.add(locationDeduced_city_deduced);
+		if(locationDeduced_city_name != null) location.add(locationDeduced_city_name);
+		if(locationDeduced_continent_deduced != null) location.add(locationDeduced_continent_deduced);
+		if(locationDeduced_continent_name != null) location.add(locationDeduced_continent_name);
+		if(locationDeduced_country_code != null) location.add(locationDeduced_country_code);
+		if(locationDeduced_country_deduced != null) location.add(locationDeduced_country_deduced);
+		if(locationDeduced_country_name != null) location.add(locationDeduced_country_name);
+		if(locationDeduced_county_deduced != null) location.add(locationDeduced_county_deduced);
+		if(locationDeduced_county_code != null) location.add(locationDeduced_county_code);
+		if(locationDeduced_county_name != null) location.add(locationDeduced_county_name);
+		if(locationDeduced_state_deduced != null) location.add(locationDeduced_state_deduced);
+		if(locationDeduced_state_code != null) location.add(locationDeduced_state_code);
+		if(locationDeduced_state_name != null) location.add(locationDeduced_state_name);
+		
+		Iterator<String> it = location.iterator();
+		
+		while(it.hasNext()) {
+			String temp = it.next();
+			if(temp != null && !temp.isEmpty()) {
+				retVal.append("|" + temp);
+			}
+		}
+		if(retVal.toString() == null || retVal.toString().isEmpty()) return "";
+		return retVal.substring(1);
+	}
+	
 	private String locationGeneral;
 	private String locationDeduced_deducedLocation;
 	private String locationDeduced_likelihood;
