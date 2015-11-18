@@ -10,10 +10,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Array;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.shareablee.users.User;
 import com.shareablee.users.UserCSVReader;
@@ -23,10 +27,36 @@ import com.shareablee.users.UserCSVReader;
  */
 public class Program {
 
-	static int count = 0;
-	static Map<String, UserProfile> list = new HashMap<>();
-	static Map<String, UserProfileMaster> listMaster = new HashMap<>();
+	public static Map<String, UserProfile> getUserlist() {
+		return userlist;
+	}
 	
+	public static Map<String, List<String>> getLastNameMap() {
+		return lastNameMap;
+	}
+
+	public static Map<String, List<String>> getFirstNameMap() {
+		return firstNameMap;
+	}
+	
+	public static Set<String> getEmailList(){
+		return userlist.keySet();
+	}
+	
+	public static Set<String> getFirstNameList(){
+		return firstNameMap.keySet();
+	}
+	public static Set<String> getLastNameList(){
+		return lastNameMap.keySet();
+	}
+
+
+	static int count = 0;
+	static Map<String, UserProfile> userlist = new HashMap<>();
+	static Map<String, UserProfileMaster> listMaster = new HashMap<>();
+	static Map<String,List<String>> lastNameMap = new HashMap<>();
+	static Map<String,List<String>> firstNameMap = new HashMap<>();
+
 	/**
 	 * @param args
 	 */
@@ -47,8 +77,24 @@ public class Program {
 			
 			tempMaster.setUser(user);
 
-			list.put(temp.getEmailId(), temp);
+			userlist.put(temp.getEmailId(), temp);
 			listMaster.put(user.getEmailId(), tempMaster);
+			
+			//Last Name and Email HashMap
+			if (lastNameMap.get(temp.getContactInfo_familyName()) == null){
+				lastNameMap.put(temp.getContactInfo_familyName(), new ArrayList<>());
+			}
+			
+			lastNameMap.get(temp.getContactInfo_familyName()).add(temp.getEmailId());
+			
+			//First Name and Email HashMap
+			if (firstNameMap.get(temp.getContactInfo_givenName()) == null){
+				firstNameMap.put(temp.getContactInfo_givenName(), new ArrayList<>());
+			}
+			
+			firstNameMap.get(temp.getContactInfo_givenName()).add(temp.getEmailId());
+			
+			
 		}
 		
 		getSocial("./data/new_social.csv");
@@ -86,7 +132,7 @@ public class Program {
 						socialList.add(social);
 					}
 					
-					UserProfile temp = list.get(social.getEmailId());
+					UserProfile temp = userlist.get(social.getEmailId());
 					if(temp != null) {
 						if(temp.getMapSocial().get(social.getTypeId()) == null) {
 							temp.getMapSocial().put(social.getTypeId(), new ArrayList<>());

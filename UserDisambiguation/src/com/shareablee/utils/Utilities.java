@@ -29,7 +29,7 @@ public class Utilities {
 	 * @return
 	 */
 
-	public static int editDistCostSlow(String str1, String str2, int m, int n) {
+	private static int editDistCostSlow(String str1, String str2, int m, int n) {
 		// If first string is empty, the only option is to
 		// insert all characters of second string into first
 		if (m == 0)
@@ -65,7 +65,7 @@ public class Utilities {
 	 * @param n - length of str2
 	 * @return
 	 */
-	int editDistCost(String str1, String str2, int m, int n) {
+	private static int editDistCost(String str1, String str2, int m, int n) {
 		// Create a table to store results of subproblems
 		int dp[][] = new int[m + 1][n + 1];
 
@@ -99,4 +99,17 @@ public class Utilities {
 		return dp[m][n];
 	}
 
+	/**
+	 * Function to calculate similarity score
+	 * @param str1
+	 * @param str2
+	 * @return
+	 */
+	public static double getSimilarity(String str1, String str2){
+		int distBtwStrings = editDistCost(str1, str2, str1.length(), str2.length());
+		double retVal = 1 - ((distBtwStrings) * 1.0)/
+							  	Math.max(str1.length(), str2.length());
+		
+		return retVal;
+	}
 }

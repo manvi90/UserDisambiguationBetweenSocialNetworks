@@ -4,8 +4,10 @@
 package com.shareablee.common;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -54,11 +56,11 @@ public class UserProfile {
 		this.demographics_gender = demographics_gender;
 	}
 	
-	public String getLocation() {
+	public Set<String> getLocation() {
 		return location;
 	}
 	
-	public void setLocation(String location) {
+	public void setLocation(Set<String> location) {
 		this.location = location;
 	}
 	
@@ -75,7 +77,7 @@ public class UserProfile {
 	private String contactInfo_fullName;
 	private String contactInfo_givenName;
 	private Gender demographics_gender;
-	private String location;
+	private Set<String> location = new HashSet<>();
 	
 	//Map of TypeId , Social Profiles
 	private Map<String, List<SocialProfile>> mapSocial = new HashMap<>();
