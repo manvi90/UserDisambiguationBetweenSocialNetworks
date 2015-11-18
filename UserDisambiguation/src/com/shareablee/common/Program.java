@@ -53,7 +53,7 @@ public class Program {
 		
 		getSocial("./data/new_social.csv");
 		
-		//System.out.println(JsonConverter.getJsonString(listMaster));
+		System.out.println(JsonConverter.getJsonString(listMaster));
 		
 	}
 
