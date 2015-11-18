@@ -51,6 +51,9 @@ public class Program {
 			listMaster.put(user.getEmailId(), tempMaster);
 		}
 		
+		getSocial("./data/new_social.csv");
+		
+		//System.out.println(JsonConverter.getJsonString(listMaster));
 		
 	}
 
