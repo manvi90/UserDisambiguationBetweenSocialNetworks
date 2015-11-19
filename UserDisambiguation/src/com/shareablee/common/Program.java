@@ -73,7 +73,7 @@ public class Program {
 			temp.setContactInfo_givenName(user.getContactInfo_givenName());
 			temp.setEmailId(user.getEmailId());
 			temp.setDemographics_gender(user.getDemographic().getDemographics_gender());
-			temp.setLocation(user.getDemographic().getLocation().toString());
+			//temp.setLocation(user.getDemographic().getLocation().toString());
 			
 			tempMaster.setUser(user);
 
