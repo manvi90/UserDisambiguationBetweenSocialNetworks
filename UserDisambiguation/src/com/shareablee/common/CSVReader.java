@@ -36,7 +36,7 @@ public abstract class CSVReader<T> {
 					retVal.add(t);
 				}
 				count++;
-				if(count > 1000) break;
+				if(count > Program.getCount()) break;
 			}
 		}catch (FileNotFoundException ex) {
 			System.err.println(ex.getMessage());

@@ -10,9 +10,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +24,10 @@ import com.shareablee.users.UserCSVReader;
  */
 public class Program {
 
+	public static int getCount() {
+		return count;
+	}
+	
 	public static Map<String, UserProfile> getUserlist() {
 		return userlist;
 	}
@@ -51,7 +52,7 @@ public class Program {
 	}
 
 
-	static int count = 0;
+	static int count = 1000;
 	static Map<String, UserProfile> userlist = new HashMap<>();
 	static Map<String, UserProfileMaster> listMaster = new HashMap<>();
 	static Map<String,List<String>> lastNameMap = new HashMap<>();
@@ -73,7 +74,7 @@ public class Program {
 			temp.setContactInfo_givenName(user.getContactInfo_givenName());
 			temp.setEmailId(user.getEmailId());
 			temp.setDemographics_gender(user.getDemographic().getDemographics_gender());
-			//temp.setLocation(user.getDemographic().getLocation().toString());
+			temp.setLocation(user.getDemographic().getLocation().getLocationMap());
 			
 			tempMaster.setUser(user);
 
@@ -99,7 +100,10 @@ public class Program {
 		
 		getSocial("./data/new_social.csv");
 		
-		System.out.println(JsonConverter.getJsonString(listMaster));
+		//System.out.println(JsonConverter.getJsonString(listMaster));
+		
+		UserProfile result = Disambiguator.userDisambiguator(temp);
+		System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName());
 		
 	}
 
@@ -112,7 +116,7 @@ public class Program {
 		
 		if(filePath.isEmpty()) throw new IllegalArgumentException("No file name specified");
 		BufferedReader bufferedReader = null; 
-		count = 0;
+		int localcount = 0;
 		try {
 			bufferedReader = new BufferedReader(new FileReader(filePath));
 			String inputLine = "";
@@ -120,7 +124,7 @@ public class Program {
 				inputLine = bufferedReader.readLine();
 				if (inputLine == null) break;
 				if (inputLine.isEmpty())  continue;
-				count++;
+				localcount++;
 				Social social = reader.parseLine(inputLine);
 				if(social != null) {
 					UserProfileMaster tempMaster = listMaster.get(social.getEmailId());
@@ -145,7 +149,7 @@ public class Program {
 						socialList.add(socialProfile);
 					}
 				}
-				if(count > 10000) break;
+				if(localcount > count) break;
 			}
 		} catch (FileNotFoundException ex) {
 			System.err.println(ex.getMessage());
@@ -162,5 +166,15 @@ public class Program {
 				}
 			}
 		}
+	}
+	
+	static UserProfile temp = null;
+	static {
+		temp = new UserProfile();
+		temp.setContactInfo_familyName("Lovelace");
+		temp.setContactInfo_fullName("Keef Lovelace");
+		temp.setContactInfo_givenName("Keef");
+		temp.setDemographics_gender(Gender.UNKNOWN);
+		temp.setEmailId("003keith2@yahoo.com");
 	}
 }
