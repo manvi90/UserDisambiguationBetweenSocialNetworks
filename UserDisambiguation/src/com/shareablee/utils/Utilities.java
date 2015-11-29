@@ -29,7 +29,7 @@ public class Utilities {
 	 * @return
 	 */
 
-	private static int editDistCostSlow(String str1, String str2, int m, int n) {
+/*	private static int editDistCostSlow(String str1, String str2, int m, int n) {
 		// If first string is empty, the only option is to
 		// insert all characters of second string into first
 		if (m == 0)
@@ -56,7 +56,7 @@ public class Utilities {
 		);
 
 	}
-
+*/
 	
 	/**
 	 * @param str1

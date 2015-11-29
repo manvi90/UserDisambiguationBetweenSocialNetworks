@@ -14,6 +14,9 @@ import com.shareablee.utils.Utilities;
  */
 public class Disambiguator {
 
+	static final char[] PATTERN = { '\0', '.', '_', '-' };
+	
+	
 	static final double EMAIL_THRESHOLD = 0.7;
 	static final double FIRST_NAME_THRESHOLD = 0.95;
 	static final double LAST_NAME_THRESHOLD = 0.98;
@@ -26,15 +29,20 @@ public class Disambiguator {
 	static final double GENDER_WEIGHT = 0.05;
 	static final double LOCATION_WEIGHT = 0.01;
 
+	/**
+	 * 
+	 * @param newUser
+	 * @return
+	 */
 	public static UserProfile userDisambiguator(UserProfile newUser) {
 
 		UserProfile retVal = null;
 		Set<String> matchingEmailList = new HashSet<>();
 
-		matchingEmailList.addAll(getEmailSimilarity(newUser));
-		matchingEmailList.addAll(getFirstNameSimilarity(newUser));
-		matchingEmailList.addAll(getLastNameSimilarity(newUser));
-		matchingEmailList.addAll(getUserIDSimilarity(newUser));
+		matchingEmailList.addAll(getSimilarEmails(newUser));
+		matchingEmailList.addAll(getSimilarFirstNames(newUser));
+		matchingEmailList.addAll(getSimilarLastNames(newUser));
+		matchingEmailList.addAll(getSimilarUserIds(newUser));
 
 		double maxSimScore = 0.0;
 		for (String email : matchingEmailList) {
@@ -84,7 +92,7 @@ public class Disambiguator {
 						newUser.getContactInfo_familyName());
 			}
 
-			unameSim = calculateUserIDSimilarityScore(newUser, userProfile);
+			unameSim = calculateUserIdSimilarityScore(newUser, userProfile);
 			if (unameSim > 0)
 				count += USERID_WEIGHT;
 
@@ -98,7 +106,7 @@ public class Disambiguator {
 			if (userProfile.getLocation().size() != 0
 					&& newUser.getLocation().size() != 0) {
 				count += LOCATION_WEIGHT;
-				locationSim = getLocationSimilarity(newUser, userProfile);
+				locationSim = calculateLocationSimilarityScore(newUser, userProfile);
 			}
 
 			double simScore = EMAIL_WEIGHT * Math.max(emailSim, emailWithoutDomainSim) / count
@@ -118,7 +126,12 @@ public class Disambiguator {
 		return retVal;
 	}
 
-	private static Set<String> getEmailSimilarity(UserProfile newUser) {
+	/**
+	 * 
+	 * @param newUser
+	 * @return
+	 */
+	private static Set<String> getSimilarEmails(UserProfile newUser) {
 		Set<String> matchingEmailList = new HashSet<>();
 		for (String existingEmail : Program.getEmailList()) {
 			double simScore = Utilities.getSimilarity(newUser.getEmailId(),
@@ -141,7 +154,12 @@ public class Disambiguator {
 		return matchingEmailList;
 	}
 
-	private static Set<String> getFirstNameSimilarity(UserProfile newUser) {
+	/**
+	 * 
+	 * @param newUser
+	 * @return
+	 */
+	private static Set<String> getSimilarFirstNames(UserProfile newUser) {
 		Set<String> matchingEmailList = new HashSet<>();
 		int count = 0;
 		for (String existingFirstName : Program.getFirstNameList()) {
@@ -162,7 +180,12 @@ public class Disambiguator {
 		return matchingEmailList;
 	}
 
-	private static Set<String> getLastNameSimilarity(UserProfile newUser) {
+	/**
+	 * 
+	 * @param newUser
+	 * @return
+	 */
+	private static Set<String> getSimilarLastNames(UserProfile newUser) {
 		Set<String> matchingEmailList = new HashSet<>();
 		int count = 0;
 		for (String existingLastName : Program.getLastNameList()) {
@@ -182,7 +205,13 @@ public class Disambiguator {
 		return matchingEmailList;
 	}
 
-	private static double getLocationSimilarity(UserProfile newUser,
+	/**
+	 * 
+	 * @param newUser
+	 * @param userProfile
+	 * @return
+	 */
+	private static double calculateLocationSimilarityScore(UserProfile newUser,
 			UserProfile userProfile) {
 		// need to check for location
 		double locationSim = 0.0;
@@ -202,15 +231,19 @@ public class Disambiguator {
 		return locationSim;
 	}
 
-	private static Set<String> getUserIDSimilarity(UserProfile newUser) {
+	/**
+	 * 
+	 * @param newUser
+	 * @return
+	 */
+	private static Set<String> getSimilarUserIds(UserProfile newUser) {
 		Set<String> matchingEmailList = new HashSet<>();
-		char[] pattern = { '\0', '.', '_', '-' };
 		for (UserProfile existingUser : Program.getUserlist().values()) {
 			boolean flag = false;
 			for (String socialMediaType : existingUser.getMapSocial().keySet()) {
 				for (SocialProfile socialProfile : existingUser.getMapSocial()
 						.get(socialMediaType)) {
-					for (char c : pattern) {
+					for (char c : PATTERN) {
 						String nameToCompare1 = newUser
 								.getContactInfo_givenName()
 								+ c
@@ -245,14 +278,19 @@ public class Disambiguator {
 		return matchingEmailList;
 	}
 
-	private static double calculateUserIDSimilarityScore(UserProfile newUser,
+	/**
+	 * 
+	 * @param newUser
+	 * @param existingUser
+	 * @return
+	 */
+	private static double calculateUserIdSimilarityScore(UserProfile newUser,
 			UserProfile existingUser) {
 		double retVal = 0;
-		char[] pattern = { '\0', '.', '_', '-' };
 		for (String socialMediaType : existingUser.getMapSocial().keySet()) {
 			for (SocialProfile socialProfile : existingUser.getMapSocial().get(
 					socialMediaType)) {
-				for (char c : pattern) {
+				for (char c : PATTERN) {
 					String nameToCompare1 = newUser.getContactInfo_givenName()
 							+ c + newUser.getContactInfo_familyName();
 					String nameToCompare2 = newUser.getContactInfo_familyName()
@@ -267,10 +305,6 @@ public class Disambiguator {
 			}
 		}
 		return retVal;
-	}
-
-	private static double calculateTotalSimilarityScore() {
-		return 0;
 	}
 
 }
