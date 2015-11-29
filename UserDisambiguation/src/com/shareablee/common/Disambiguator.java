@@ -6,6 +6,7 @@ package com.shareablee.common;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.shareablee.utils.ProgramConstants;
 import com.shareablee.utils.Utilities;
 
 /**
@@ -13,21 +14,6 @@ import com.shareablee.utils.Utilities;
  *
  */
 public class Disambiguator {
-
-	static final char[] PATTERN = { '\0', '.', '_', '-' };
-	
-	
-	static final double EMAIL_THRESHOLD = 0.7;
-	static final double FIRST_NAME_THRESHOLD = 0.95;
-	static final double LAST_NAME_THRESHOLD = 0.98;
-	static final double USER_NAME_THRESHOLD = 0.7;
-
-	static final double EMAIL_WEIGHT = 0.25;
-	static final double FIRST_NAME_WEIGHT = 0.20;
-	static final double LAST_NAME_WEIGHT = 0.25;
-	static final double USERID_WEIGHT = 0.15;
-	static final double GENDER_WEIGHT = 0.05;
-	static final double LOCATION_WEIGHT = 0.01;
 
 	/**
 	 * 
@@ -63,10 +49,10 @@ public class Disambiguator {
 					&& !userProfile.getEmailId().isEmpty()
 					&& newUser.getEmailId() != null
 					&& !newUser.getEmailId().isEmpty()) {
-				count += EMAIL_WEIGHT;
+				count += ProgramConstants.EMAIL_WEIGHT;
 			}
 
-			if (emailSim < EMAIL_THRESHOLD) {
+			if (emailSim < ProgramConstants.EMAIL_THRESHOLD) {
 				emailWithoutDomainSim = Utilities.getSimilarity(userProfile
 						.getEmailId().split("@")[0], newUser.getEmailId()
 						.split("@")[0]);
@@ -76,7 +62,7 @@ public class Disambiguator {
 					&& !userProfile.getContactInfo_givenName().isEmpty()
 					&& newUser.getContactInfo_givenName() != null
 					&& !newUser.getContactInfo_givenName().isEmpty()) {
-				count += FIRST_NAME_WEIGHT;
+				count += ProgramConstants.FIRST_NAME_WEIGHT;
 				fnameSim = Utilities.getSimilarity(
 						userProfile.getContactInfo_givenName(),
 						newUser.getContactInfo_givenName());
@@ -86,7 +72,7 @@ public class Disambiguator {
 					&& !userProfile.getContactInfo_familyName().isEmpty()
 					&& newUser.getContactInfo_familyName() != null
 					&& !newUser.getContactInfo_familyName().isEmpty()) {
-				count += LAST_NAME_WEIGHT;
+				count += ProgramConstants.LAST_NAME_WEIGHT;
 				lnameSim = Utilities.getSimilarity(
 						userProfile.getContactInfo_familyName(),
 						newUser.getContactInfo_familyName());
@@ -94,27 +80,27 @@ public class Disambiguator {
 
 			unameSim = calculateUserIdSimilarityScore(newUser, userProfile);
 			if (unameSim > 0)
-				count += USERID_WEIGHT;
+				count += ProgramConstants.USERID_WEIGHT;
 
 			if (userProfile.getDemographics_gender() != Gender.UNKNOWN
 					&& newUser.getDemographics_gender() != Gender.UNKNOWN) {
-				count += GENDER_WEIGHT;
+				count += ProgramConstants.GENDER_WEIGHT;
 				genderSim = userProfile.getDemographics_gender() == newUser
 						.getDemographics_gender() ? 1.0 : 0.0;
 			}
 
 			if (userProfile.getLocation().size() != 0
 					&& newUser.getLocation().size() != 0) {
-				count += LOCATION_WEIGHT;
+				count += ProgramConstants.LOCATION_WEIGHT;
 				locationSim = calculateLocationSimilarityScore(newUser, userProfile);
 			}
 
-			double simScore = EMAIL_WEIGHT * Math.max(emailSim, emailWithoutDomainSim) / count
-					+ FIRST_NAME_WEIGHT * fnameSim / count 
-					+ LAST_NAME_WEIGHT * lnameSim / count 
-					+ USERID_WEIGHT * unameSim / count
-					+ GENDER_WEIGHT * genderSim / count 
-					+ LOCATION_WEIGHT * locationSim / count;
+			double simScore = ProgramConstants.EMAIL_WEIGHT * Math.max(emailSim, emailWithoutDomainSim) / count
+					+ ProgramConstants.FIRST_NAME_WEIGHT * fnameSim / count 
+					+ ProgramConstants.LAST_NAME_WEIGHT * lnameSim / count 
+					+ ProgramConstants.USERID_WEIGHT * unameSim / count
+					+ ProgramConstants.GENDER_WEIGHT * genderSim / count 
+					+ ProgramConstants.LOCATION_WEIGHT * locationSim / count;
 			
 			if (maxSimScore < simScore) {
 				maxSimScore = simScore;
@@ -136,12 +122,12 @@ public class Disambiguator {
 		for (String existingEmail : Program.getEmailList()) {
 			double simScore = Utilities.getSimilarity(newUser.getEmailId(),
 					existingEmail);
-			if (simScore < EMAIL_THRESHOLD) {
+			if (simScore < ProgramConstants.EMAIL_THRESHOLD) {
 				simScore = Utilities.getSimilarity(
 						newUser.getEmailId().split("@")[0],
 						existingEmail.split("@")[0]);
 
-				if (simScore >= EMAIL_THRESHOLD) {
+				if (simScore >= ProgramConstants.EMAIL_THRESHOLD) {
 					matchingEmailList.add(existingEmail);
 				}
 
@@ -167,7 +153,7 @@ public class Disambiguator {
 				double firstnameSimScore = Utilities.getSimilarity(
 						newUser.getContactInfo_givenName(), existingFirstName);
 
-				if (firstnameSimScore >= FIRST_NAME_THRESHOLD) {
+				if (firstnameSimScore >= ProgramConstants.FIRST_NAME_THRESHOLD) {
 					matchingEmailList.addAll(Program.getFirstNameMap().get(
 							existingFirstName));
 				}
@@ -192,7 +178,7 @@ public class Disambiguator {
 			try {
 				double lastnameSimScore = Utilities.getSimilarity(
 						newUser.getContactInfo_familyName(), existingLastName);
-				if (lastnameSimScore >= LAST_NAME_THRESHOLD) {
+				if (lastnameSimScore >= ProgramConstants.LAST_NAME_THRESHOLD) {
 					matchingEmailList.addAll(Program.getLastNameMap().get(
 							existingLastName));
 				}
@@ -243,7 +229,7 @@ public class Disambiguator {
 			for (String socialMediaType : existingUser.getMapSocial().keySet()) {
 				for (SocialProfile socialProfile : existingUser.getMapSocial()
 						.get(socialMediaType)) {
-					for (char c : PATTERN) {
+					for (char c : ProgramConstants.PATTERN) {
 						String nameToCompare1 = newUser
 								.getContactInfo_givenName()
 								+ c
@@ -254,14 +240,14 @@ public class Disambiguator {
 								+ newUser.getContactInfo_givenName();
 						double userNameScore = Utilities.getSimilarity(
 								socialProfile.getUserName(), nameToCompare1);
-						if (userNameScore >= USER_NAME_THRESHOLD) {
+						if (userNameScore >= ProgramConstants.USER_NAME_THRESHOLD) {
 							matchingEmailList.add(existingUser.getEmailId());
 							flag = true;
 							break;
 						}
 						userNameScore = Utilities.getSimilarity(
 								socialProfile.getUserName(), nameToCompare2);
-						if (userNameScore >= USER_NAME_THRESHOLD) {
+						if (userNameScore >= ProgramConstants.USER_NAME_THRESHOLD) {
 							matchingEmailList.add(existingUser.getEmailId());
 							flag = true;
 							break;
@@ -290,7 +276,7 @@ public class Disambiguator {
 		for (String socialMediaType : existingUser.getMapSocial().keySet()) {
 			for (SocialProfile socialProfile : existingUser.getMapSocial().get(
 					socialMediaType)) {
-				for (char c : PATTERN) {
+				for (char c : ProgramConstants.PATTERN) {
 					String nameToCompare1 = newUser.getContactInfo_givenName()
 							+ c + newUser.getContactInfo_familyName();
 					String nameToCompare2 = newUser.getContactInfo_familyName()
@@ -306,5 +292,81 @@ public class Disambiguator {
 		}
 		return retVal;
 	}
+	
+	public static double caluclateSimilarities(UserProfile user1, UserProfile user2){
+		double count = 0;
+		double maxSimScore = 0.0;
+		double retVal =0;
+		double emailSim = Utilities.getSimilarity(user1.getEmailId(),
+				user2.getEmailId());
+		double emailWithoutDomainSim = 0;
+		double fnameSim = 0;
+		double lnameSim = 0;
+		double unameSim = 0;
+		double genderSim = 0;
+		double locationSim = 0;
+
+		if (user1.getEmailId() != null
+				&& !user1.getEmailId().isEmpty()
+				&& user2.getEmailId() != null
+				&& !user2.getEmailId().isEmpty()) {
+			count += ProgramConstants.EMAIL_WEIGHT;
+		}
+
+		if (emailSim < ProgramConstants.EMAIL_THRESHOLD) {
+			emailWithoutDomainSim = Utilities.getSimilarity(user1
+					.getEmailId().split("@")[0], user2.getEmailId()
+					.split("@")[0]);
+		}
+
+		if (user1.getContactInfo_givenName() != null
+				&& !user1.getContactInfo_givenName().isEmpty()
+				&& user2.getContactInfo_givenName() != null
+				&& !user2.getContactInfo_givenName().isEmpty()) {
+			count += ProgramConstants.FIRST_NAME_WEIGHT;
+			fnameSim = Utilities.getSimilarity(
+					user1.getContactInfo_givenName(),
+					user2.getContactInfo_givenName());
+		}
+
+		if (user1.getContactInfo_familyName() != null
+				&& !user1.getContactInfo_familyName().isEmpty()
+				&& user2.getContactInfo_familyName() != null
+				&& !user2.getContactInfo_familyName().isEmpty()) {
+			count += ProgramConstants.LAST_NAME_WEIGHT;
+			lnameSim = Utilities.getSimilarity(
+					user1.getContactInfo_familyName(),
+					user2.getContactInfo_familyName());
+		}
+
+		unameSim = calculateUserIdSimilarityScore(user2, user1);
+		if (unameSim > 0)
+			count += ProgramConstants.USERID_WEIGHT;
+
+		if (user1.getDemographics_gender() != Gender.UNKNOWN
+				&& user2.getDemographics_gender() != Gender.UNKNOWN) {
+			count += ProgramConstants.GENDER_WEIGHT;
+			genderSim = user1.getDemographics_gender() == user2
+					.getDemographics_gender() ? 1.0 : 0.0;
+		}
+
+		if (user1.getLocation().size() != 0
+				&& user2.getLocation().size() != 0) {
+			count += ProgramConstants.LOCATION_WEIGHT;
+			locationSim = calculateLocationSimilarityScore(user1, user2);
+		}
+
+		double simScore = ProgramConstants.EMAIL_WEIGHT * Math.max(emailSim, emailWithoutDomainSim) / count
+				+ ProgramConstants.FIRST_NAME_WEIGHT * fnameSim / count 
+				+ ProgramConstants.LAST_NAME_WEIGHT * lnameSim / count 
+				+ ProgramConstants.USERID_WEIGHT * unameSim / count
+				+ ProgramConstants.GENDER_WEIGHT * genderSim / count 
+				+ ProgramConstants.LOCATION_WEIGHT * locationSim / count;
+		
+		if (maxSimScore < simScore) {
+			maxSimScore = simScore;
+		}
+		return maxSimScore;
+	}	
 
 }

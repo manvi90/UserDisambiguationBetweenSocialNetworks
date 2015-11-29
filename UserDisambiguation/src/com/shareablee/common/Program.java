@@ -52,11 +52,17 @@ public class Program {
 	}
 
 
+	public static List<Cluster> getClusterCollection() {
+		return clusterCollection;
+	}
+
+
 	static int count = 1000;
 	static Map<String, UserProfile> userlist = new HashMap<>();
 	static Map<String, UserProfileMaster> listMaster = new HashMap<>();
 	static Map<String,List<String>> lastNameMap = new HashMap<>();
 	static Map<String,List<String>> firstNameMap = new HashMap<>();
+	static List<Cluster> clusterCollection = new ArrayList<Cluster>();
 
 	/**
 	 * @param args
