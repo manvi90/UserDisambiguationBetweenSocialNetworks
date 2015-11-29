@@ -109,7 +109,16 @@ class SocialProfile {
 		this.typeName = typeName;
 	}
 	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	private String socialMediaId;
 	private String typeId;
 	private String typeName;	
+	private String userName;
 }

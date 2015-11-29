@@ -146,6 +146,7 @@ public class Program {
 						socialProfile.setSocialMediaId(social.getSocialMediaId());
 						socialProfile.setTypeId(social.getTypeId());
 						socialProfile.setTypeName(social.getTypeName());
+						socialProfile.setUserName(social.getUserName());
 						socialList.add(socialProfile);
 					}
 				}
@@ -171,10 +172,10 @@ public class Program {
 	static UserProfile temp = null;
 	static {
 		temp = new UserProfile();
-		temp.setContactInfo_familyName("Lovelace");
-		temp.setContactInfo_fullName("Keef Lovelace");
-		temp.setContactInfo_givenName("Keef");
-		temp.setDemographics_gender(Gender.UNKNOWN);
-		temp.setEmailId("003keith2@yahoo.com");
+		temp.setContactInfo_familyName("Malik");
+		temp.setContactInfo_fullName("Manvi Malik");
+		temp.setContactInfo_givenName("Manvi");
+		temp.setDemographics_gender(Gender.FEMALE);
+		temp.setEmailId("003manvi@yahoo.com");
 	}
 }

@@ -107,7 +107,7 @@ public class Utilities {
 	 */
 	public static double getSimilarity(String str1, String str2) {
 		if(str1 == null || str2 == null) return 0;
-		int distBtwStrings = editDistCost(str1, str2, str1.length(), str2.length());
+		int distBtwStrings = editDistCost(str1.toLowerCase(), str2.toLowerCase(), str1.length(), str2.length());
 		double retVal = 1 - ((distBtwStrings) * 1.0)/
 							  	Math.max(str1.length(), str2.length());
 		
