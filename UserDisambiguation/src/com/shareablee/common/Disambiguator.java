@@ -10,19 +10,20 @@ import com.shareablee.utils.ProgramConstants;
 import com.shareablee.utils.Utilities;
 
 /**
+ *  
  * @author Madhuri
  *
  */
 public class Disambiguator {
 
 	/**
-	 * 
+	 * Method to calculate total similarity score.
 	 * @param newUser
 	 * @return
 	 */
-	public static UserProfile userDisambiguator(UserProfile newUser) {
+	public static Set<UserProfile> userDisambiguator(UserProfile newUser) {
 
-		UserProfile retVal = null;
+		Set<UserProfile> retVal = new HashSet<>();
 		Set<String> matchingEmailList = new HashSet<>();
 
 		matchingEmailList.addAll(getSimilarEmails(newUser));
@@ -33,7 +34,7 @@ public class Disambiguator {
 		double maxSimScore = 0.0;
 		for (String email : matchingEmailList) {
 			double count = 0;
-			System.out.println(email);
+			//System.out.println(email);
 
 			UserProfile userProfile = Program.userlist.get(email);
 			double emailSim = Utilities.getSimilarity(userProfile.getEmailId(),
@@ -102,18 +103,18 @@ public class Disambiguator {
 					+ ProgramConstants.GENDER_WEIGHT * genderSim / count 
 					+ ProgramConstants.LOCATION_WEIGHT * locationSim / count;
 			
-			if (maxSimScore < simScore) {
-				maxSimScore = simScore;
-				retVal = userProfile;
+			if (ProgramConstants.USER_SIMILARITY_THRESHOLD <= simScore) {
+				retVal.add(userProfile);
 			}
 
 		}
-		System.out.println(maxSimScore);
+		//System.out.println(maxSimScore);
 		return retVal;
 	}
 
 	/**
-	 * 
+	 * Method that calculates the similarity between the two emails and if it lies in the
+	 * threshold, add it to the matching email list
 	 * @param newUser
 	 * @return
 	 */
@@ -141,7 +142,9 @@ public class Disambiguator {
 	}
 
 	/**
-	 * 
+	 * Method that calculates the similarity between the first name of two users and if the similarity score is larger
+	 * than threshold, add the email id's to the matching email list. 
+	 *
 	 * @param newUser
 	 * @return
 	 */
@@ -167,6 +170,8 @@ public class Disambiguator {
 	}
 
 	/**
+	 * Method that calculates the similarity between the last name of two users and if the similarity score is larger
+	 * than threshold, add the email id's to the matching email list. 
 	 * 
 	 * @param newUser
 	 * @return
@@ -192,7 +197,7 @@ public class Disambiguator {
 	}
 
 	/**
-	 * 
+	 * Method that returns the similarity score value between the location of two users.
 	 * @param newUser
 	 * @param userProfile
 	 * @return
@@ -218,7 +223,8 @@ public class Disambiguator {
 	}
 
 	/**
-	 * 
+	 * Method that calculates the similarity between the user id's of two users and if the similarity score is larger
+	 * than threshold, add the email id's to the matching email list. 
 	 * @param newUser
 	 * @return
 	 */
@@ -265,7 +271,7 @@ public class Disambiguator {
 	}
 
 	/**
-	 * 
+	 * Method that returns the similarity score value between two user id's.
 	 * @param newUser
 	 * @param existingUser
 	 * @return
@@ -293,6 +299,15 @@ public class Disambiguator {
 		return retVal;
 	}
 	
+	/**
+	 * Method that calculate the total similarity score values between two users,
+	 * based on their email id, user id, first name, last name, gender and location.
+	 * All these parameters are assigned different weights.
+	 * 
+	 * @param user1
+	 * @param user2
+	 * @return
+	 */
 	public static double caluclateSimilarities(UserProfile user1, UserProfile user2){
 		double count = 0;
 		double maxSimScore = 0.0;

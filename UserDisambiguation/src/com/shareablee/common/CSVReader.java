@@ -18,6 +18,11 @@ public abstract class CSVReader<T> {
 	
 	public abstract T parseLine(String inputLine);
 	
+	/**
+	 * Method to read the csv file line by line
+	 * @param filePath
+	 * @return
+	 */
 	public List<T> getData(String filePath) {
 		
 		if(filePath.isEmpty()) throw new IllegalArgumentException("No file name specified");

@@ -11,6 +11,9 @@ import com.shareablee.common.CSVReader;
  */
 public class SocialCSVReader extends CSVReader<Social> {
 	
+	/**
+	 * Method that reads the social csv line by line.
+	 */
 	@Override
 	public Social parseLine(String inputLine) {
 		
@@ -27,7 +30,7 @@ public class SocialCSVReader extends CSVReader<Social> {
 		retVal.setTypeName(inputLineArray[7]); // Type Name
 		retVal.setUrl(inputLineArray[8]); // URL
 		
-		if(inputLineArray.length >= 9) {
+		if(inputLineArray.length > 9) {
 			retVal.setUserName(inputLineArray[9]); // Username
 		}
 		

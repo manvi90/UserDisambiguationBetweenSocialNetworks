@@ -16,14 +16,26 @@ import com.shareablee.social.Social;
  */
 public class UserProfileMaster {
 	
+	/**
+	 * Method that returns the user
+	 * @return
+	 */
 	public User getUser() {
 		return user;
 	}
-
+	
+	/**
+	 * Method that set the user
+	 * @param user
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Map<String, List<Social>> getMapSocial() {
 		return mapSocial;
 	}

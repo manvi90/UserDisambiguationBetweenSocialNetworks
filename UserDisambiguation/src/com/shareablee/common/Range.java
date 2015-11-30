@@ -4,7 +4,7 @@
 package com.shareablee.common;
 
 /**
- * 
+ * Class used to define the age range
  *
  */
 public class Range<T> {

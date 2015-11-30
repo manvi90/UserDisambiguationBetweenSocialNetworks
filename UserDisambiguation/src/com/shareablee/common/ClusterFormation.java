@@ -13,7 +13,11 @@ import com.shareablee.utils.ProgramConstants;
  *
  */
 public class ClusterFormation {
-	
+	/**
+	 * Method to find the most similar cluster to the given user.
+	 * @param user
+	 * @return
+	 */
 	public static Cluster findCluster(UserProfile user){
 		
 		Cluster retVal = null;
@@ -22,8 +26,9 @@ public class ClusterFormation {
 			double similarityScore = 0;
 			//pick randomly
 			List<UserProfile> randomUsers = new ArrayList<>();
-			
-			while(cluster.getUsers().size() > 0 && randomUsers.size() < ProgramConstants.COUNT_USER_CLUSTER) {
+			// select random 25% users 
+			int limit = cluster.getUsers().size() / 4 + 10;
+			while(cluster.getUsers().size() > 0 && randomUsers.size() < limit) {
 				randomUsers.add(cluster.getUsers().remove((int)(Math.random() * cluster.getUsers().size())));
 			}
 			
@@ -45,10 +50,17 @@ public class ClusterFormation {
 		return retVal;
 	}
 	
+	/**
+	 * Method that add in cluster the new user coming.
+	 * @param cluster
+	 * @param user
+	 */
 	public static void addToCluster(Cluster cluster, UserProfile user) {
 		if(cluster == null) return;
 		cluster.addUsers(user);
 	}
+	
+	
 	
 	
 }

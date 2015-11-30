@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Cluster {
 	/**
-	 * 
+	 * Method to return the list of users in a given cluster.
 	 * @return
 	 */
 	public List<UserProfile> getUsers() {
@@ -20,7 +20,7 @@ public class Cluster {
 	}
 
 	/**
-	 * 
+	 * Method to add the user to the cluster.
 	 * @param user
 	 */
 	public void addUsers(UserProfile user){

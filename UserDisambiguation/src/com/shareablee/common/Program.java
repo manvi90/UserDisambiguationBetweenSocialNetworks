@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -108,8 +109,17 @@ public class Program {
 		
 		//System.out.println(JsonConverter.getJsonString(listMaster));
 		
-		UserProfile result = Disambiguator.userDisambiguator(temp);
-		System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName());
+		for(UserProfile user : userlist.values()) {
+			processUser(user);		}
+		
+		System.out.println("Initial collection size"+ clusterCollection.size());
+		
+		findIdenticalProfile(temp);
+		
+		System.out.println("updated collection size"+ clusterCollection.size());
+		
+//		Disambiguator.userDisambiguator(temp);
+//		System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName());
 		
 	}
 
@@ -163,7 +173,7 @@ public class Program {
 		} catch (IOException ex) {
 			System.err.println("Unable to read the file : " + ex.toString());
 		} catch (Exception ex) {
-			
+			System.err.println("General exception : " + ex.toString());
 		} finally {
 			if(bufferedReader != null) {
 				try {
@@ -175,13 +185,74 @@ public class Program {
 		}
 	}
 	
+	/**
+	 * Method to find the matching cluster for the new user
+	 * @param user
+	 */
+	public static void processUser(UserProfile newUser){
+		Cluster cluster = ClusterFormation.findCluster(newUser);
+		if (cluster == null){
+			cluster = new Cluster();
+			clusterCollection.add(cluster);
+		}
+		
+		ClusterFormation.addToCluster(cluster, newUser);
+	}
+	
+	
+	public static Set<UserProfile> findIdenticalProfile(UserProfile newUser){
+		Cluster cluster = ClusterFormation.findCluster(newUser);
+		if (cluster == null){
+			cluster = new Cluster();
+			clusterCollection.add(cluster);
+		}
+		
+
+		Set<UserProfile> retVal = null;
+		userlist = new HashMap<>();
+		lastNameMap = new HashMap<>();
+		firstNameMap = new HashMap<>();
+		
+		for (UserProfile user : cluster.getUsers()){
+			userlist.put(user.getEmailId(), user);
+			
+			if(lastNameMap.get(user.getContactInfo_familyName()) == null) {
+				lastNameMap.put(user.getContactInfo_familyName(), new ArrayList<>());
+			}
+			lastNameMap.get(user.getContactInfo_familyName()).add(user.getEmailId());
+			
+			if(firstNameMap.get(user.getContactInfo_givenName()) == null) {
+				firstNameMap.put(user.getContactInfo_givenName(), new ArrayList<>());
+			}
+			firstNameMap.get(user.getContactInfo_givenName()).add(user.getEmailId());
+		}
+		
+		retVal = Disambiguator.userDisambiguator(newUser);
+		for(UserProfile result : retVal) {
+			
+			System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName());
+			for(String string : result.getMapSocial().keySet())
+				System.out.println(string);
+		}
+		
+		ClusterFormation.addToCluster(cluster, newUser);
+		
+		return retVal;
+	}
+	
+	//test code
 	static UserProfile temp = null;
 	static {
 		temp = new UserProfile();
-		temp.setContactInfo_familyName("Malik");
-		temp.setContactInfo_fullName("Manvi Malik");
-		temp.setContactInfo_givenName("Manvi");
-		temp.setDemographics_gender(Gender.FEMALE);
-		temp.setEmailId("003manvi@yahoo.com");
+		temp.setContactInfo_familyName("Mascia");
+		temp.setContactInfo_fullName("Paul Mascia");
+		temp.setContactInfo_givenName("Paul");
+		temp.setDemographics_gender(Gender.MALE);
+		Set<String> location = new HashSet<>();
+		location.add("New York");
+		location.add("United States");
+		location.add("North America");
+		temp.setLocation(location);
+		temp.setEmailId("08_stang000@live.com");
 	}
 }
