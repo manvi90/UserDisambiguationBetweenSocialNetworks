@@ -56,6 +56,6 @@ public class Demographic {
 	
 	private int demographics_age;
 	private Range<Integer> demographics_ageRange;
-	private Gender demographics_gender;
+	private Gender demographics_gender = Gender.UNKNOWN;
 	private Location location;
 }

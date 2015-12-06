@@ -36,11 +36,13 @@ public abstract class CSVReader<T> {
 				inputLine = bufferedReader.readLine();
 				if (inputLine == null) break;
 				if (inputLine.isEmpty())  continue;
+				System.out.println(count);
+				count++;
+				if(count < 613092) continue;
 				T t = (T)parseLine(inputLine);
 				if(t != null) {
-					retVal.add(t);
+					//retVal.add(t);
 				}
-				count++;
 				if(count > Program.getCount()) break;
 			}
 		}catch (FileNotFoundException ex) {
@@ -59,7 +61,7 @@ public abstract class CSVReader<T> {
 			}
 		}
 		
-		return retVal;
+		return null;
 	}
 	
 }

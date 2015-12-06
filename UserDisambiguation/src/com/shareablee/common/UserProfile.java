@@ -112,6 +112,14 @@ public class UserProfile {
 		this.location = location;
 	}
 	
+	public String getLocationString (){
+		if (this.location.size() <= 0) return "";
+		StringBuilder sb = new StringBuilder();
+		for(String loc: this.location){
+			sb.append(":" + loc);
+		}
+		return sb.toString().substring(1);
+	}
 	/**
 	 * Method that returns the list of social profiles, key = email id
 	 * value = other information about the user.

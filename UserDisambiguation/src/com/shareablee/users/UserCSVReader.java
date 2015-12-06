@@ -5,6 +5,7 @@ package com.shareablee.users;
 
 import com.shareablee.common.CSVReader;
 import com.shareablee.common.Location;
+import com.shareablee.database.AccessDB;
 
 /**
  *
@@ -62,6 +63,8 @@ public class UserCSVReader extends CSVReader<User> {
 	
 		demoInfo.setLocation(locationInfo);
 		retVal.setDemographic(demoInfo);
+		
+		AccessDB.insertToDB(retVal);
 		
 		return retVal;
 		

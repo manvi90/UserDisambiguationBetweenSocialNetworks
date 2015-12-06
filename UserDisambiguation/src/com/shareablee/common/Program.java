@@ -3,6 +3,7 @@
  */
 package com.shareablee.common;
 
+import com.shareablee.database.AccessDB;
 import com.shareablee.social.Social;
 import com.shareablee.social.SocialCSVReader;
 
@@ -58,7 +59,7 @@ public class Program {
 	}
 
 
-	static int count = 1000;
+	static int count = Integer.MAX_VALUE;
 	static Map<String, UserProfile> userlist = new HashMap<>();
 	static Map<String, UserProfileMaster> listMaster = new HashMap<>();
 	static Map<String,List<String>> lastNameMap = new HashMap<>();
@@ -71,52 +72,56 @@ public class Program {
 	public static void main(String[] args) {
 		CSVReader<User> scsvr = new UserCSVReader();
 		List<User> users = scsvr.getData("./data/new_primary.csv");
-		
-		for(User user : users) {
-			UserProfile temp = new UserProfile();
-			UserProfileMaster tempMaster = new UserProfileMaster();
-			
-			temp.setContactInfo_familyName(user.getContactInfo_familyName());
-			temp.setContactInfo_fullName(user.getContactInfo_fullName());
-			temp.setContactInfo_givenName(user.getContactInfo_givenName());
-			temp.setEmailId(user.getEmailId());
-			temp.setDemographics_gender(user.getDemographic().getDemographics_gender());
-			temp.setLocation(user.getDemographic().getLocation().getLocationMap());
-			
-			tempMaster.setUser(user);
-
-			userlist.put(temp.getEmailId(), temp);
-			listMaster.put(user.getEmailId(), tempMaster);
-			
-			//Last Name and Email HashMap
-			if (lastNameMap.get(temp.getContactInfo_familyName()) == null){
-				lastNameMap.put(temp.getContactInfo_familyName(), new ArrayList<>());
-			}
-			
-			lastNameMap.get(temp.getContactInfo_familyName()).add(temp.getEmailId());
-			
-			//First Name and Email HashMap
-			if (firstNameMap.get(temp.getContactInfo_givenName()) == null){
-				firstNameMap.put(temp.getContactInfo_givenName(), new ArrayList<>());
-			}
-			
-			firstNameMap.get(temp.getContactInfo_givenName()).add(temp.getEmailId());
-			
-			
-		}
-		
-		getSocial("./data/new_social.csv");
-		
-		//System.out.println(JsonConverter.getJsonString(listMaster));
-		
-		for(UserProfile user : userlist.values()) {
-			processUser(user);		}
-		
-		System.out.println("Initial collection size"+ clusterCollection.size());
-		
-		findIdenticalProfile(temp);
-		
-		System.out.println("updated collection size"+ clusterCollection.size());
+//		System.out.println(users.size());
+//		for(User user : users) {
+//			UserProfile temp = new UserProfile();
+//			UserProfileMaster tempMaster = new UserProfileMaster();
+//			
+//			temp.setContactInfo_familyName(user.getContactInfo_familyName());
+//			temp.setContactInfo_fullName(user.getContactInfo_fullName());
+//			temp.setContactInfo_givenName(user.getContactInfo_givenName());
+//			temp.setEmailId(user.getEmailId());
+//			temp.setDemographics_gender(user.getDemographic().getDemographics_gender());
+//			temp.setLocation(user.getDemographic().getLocation().getLocationMap());
+//			
+//			tempMaster.setUser(user);
+//
+//			//calling db
+//	//		AccessDB.insertToDB(temp);
+//			
+//			
+//			userlist.put(temp.getEmailId(), temp);
+//			listMaster.put(user.getEmailId(), tempMaster);
+//			
+//			//Last Name and Email HashMap
+//			if (lastNameMap.get(temp.getContactInfo_familyName()) == null){
+//				lastNameMap.put(temp.getContactInfo_familyName(), new ArrayList<>());
+//			}
+//			
+//			lastNameMap.get(temp.getContactInfo_familyName()).add(temp.getEmailId());
+//			
+//			//First Name and Email HashMap
+//			if (firstNameMap.get(temp.getContactInfo_givenName()) == null){
+//				firstNameMap.put(temp.getContactInfo_givenName(), new ArrayList<>());
+//			}
+//			
+//			firstNameMap.get(temp.getContactInfo_givenName()).add(temp.getEmailId());
+//			
+//			
+//		}
+//		
+//		getSocial("./data/new_social.csv");
+//		
+//		//System.out.println(JsonConverter.getJsonString(listMaster));
+//		
+//		for(UserProfile user : userlist.values()) {
+//			processUser(user);		}
+//		
+//		System.out.println("Initial collection size"+ clusterCollection.size());
+//		
+//		findIdenticalProfile(temp);
+//		
+//		System.out.println("updated collection size"+ clusterCollection.size());
 		
 //		Disambiguator.userDisambiguator(temp);
 //		System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName());
@@ -244,15 +249,16 @@ public class Program {
 	static UserProfile temp = null;
 	static {
 		temp = new UserProfile();
-		temp.setContactInfo_familyName("Mascia");
-		temp.setContactInfo_fullName("Paul Mascia");
-		temp.setContactInfo_givenName("Paul");
-		temp.setDemographics_gender(Gender.MALE);
+		temp.setContactInfo_familyName("Manring");
+		temp.setContactInfo_fullName("Marissa Rose");
+		temp.setContactInfo_givenName("Marissa");
+		temp.setDemographics_gender(Gender.FEMALE);
 		Set<String> location = new HashSet<>();
-		location.add("New York");
+		location.add("Sunnyside");
+		location.add("Washington");
 		location.add("United States");
 		location.add("North America");
 		temp.setLocation(location);
-		temp.setEmailId("08_stang000@live.com");
+		temp.setEmailId("008rosebud@comcast.net");
 	}
 }
