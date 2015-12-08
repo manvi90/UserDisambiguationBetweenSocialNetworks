@@ -346,7 +346,7 @@ public class Location {
 		while(it.hasNext()) {
 			String temp = it.next();
 			if(temp != null && !temp.isEmpty()) {
-				retVal.append(":" + temp);
+				retVal.append("|" + temp);
 			}
 		}
 		if(retVal.toString() == null || retVal.toString().isEmpty()) return "";
