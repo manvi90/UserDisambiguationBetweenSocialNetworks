@@ -3,6 +3,8 @@
  */
 package com.shareablee.utils;
 
+import java.util.Arrays;
+
 /**
  * @author Madhuri
  *
@@ -19,8 +21,8 @@ public class Utilities {
 	private static int min(int x, int y, int z) {
 		return Math.min(Math.min(x, y), z);
 	}
-	
-	
+
+
 	/**
 	 * @param str1
 	 * @param str2
@@ -29,7 +31,7 @@ public class Utilities {
 	 * @return
 	 */
 
-/*	private static int editDistCostSlow(String str1, String str2, int m, int n) {
+	/*	private static int editDistCostSlow(String str1, String str2, int m, int n) {
 		// If first string is empty, the only option is to
 		// insert all characters of second string into first
 		if (m == 0)
@@ -56,8 +58,8 @@ public class Utilities {
 		);
 
 	}
-*/
-	
+	 */
+
 	/**
 	 * @param str1
 	 * @param str2
@@ -105,12 +107,77 @@ public class Utilities {
 	 * @param str2
 	 * @return
 	 */
-	public static double getSimilarity(String str1, String str2) {
+	public static double getSimilarity(String str1, String str2, boolean flag) {
+		double retVal = 0.0;
 		if(str1 == null || str2 == null) return 0;
-		int distBtwStrings = editDistCost(str1.toLowerCase(), str2.toLowerCase(), str1.length(), str2.length());
-		double retVal = 1 - ((distBtwStrings) * 1.0)/
-							  	Math.max(str1.length(), str2.length());
-		
+		if (flag){
+			//int distBtwStrings = editDistCost(str1.toLowerCase(), str2.toLowerCase(), str1.length(), str2.length());
+			//retVal = 1 - ((distBtwStrings) * 1.0)/
+					//Math.max(str1.length(), str2.length());
+			retVal = diceCoefficientOptimized(str1, str2);
+		}else {
+			JaroWinklerDistance jaroDistCalc = new JaroWinklerDistance(); 
+			retVal = jaroDistCalc.getDistance(str1, str2);
+		}
+
 		return retVal;
 	}
+	
+	
+	public static double diceCoefficientOptimized(String s, String t)
+	{
+		// Verifying the input:
+		if (s == null || t == null)
+			return 0;
+		// Quick check to catch identical objects:
+		if (s == t)
+			return 1;
+	        // avoid exception for single character searches
+	        if (s.length() < 2 || t.length() < 2)
+	            return 0;
+
+		// Create the bigrams for string s:
+		final int n = s.length()-1;
+		final int[] sPairs = new int[n];
+		for (int i = 0; i <= n; i++)
+			if (i == 0)
+				sPairs[i] = s.charAt(i) << 16;
+			else if (i == n)
+				sPairs[i-1] |= s.charAt(i);
+			else
+				sPairs[i] = (sPairs[i-1] |= s.charAt(i)) << 16;
+
+		// Create the bigrams for string t:
+		final int m = t.length()-1;
+		final int[] tPairs = new int[m];
+		for (int i = 0; i <= m; i++)
+			if (i == 0)
+				tPairs[i] = t.charAt(i) << 16;
+			else if (i == m)
+				tPairs[i-1] |= t.charAt(i);
+			else
+				tPairs[i] = (tPairs[i-1] |= t.charAt(i)) << 16;
+
+		// Sort the bigram lists:
+		Arrays.sort(sPairs);
+		Arrays.sort(tPairs);
+
+		// Count the matches:
+		int matches = 0, i = 0, j = 0;
+		while (i < n && j < m)
+		{
+			if (sPairs[i] == tPairs[j])
+			{
+				matches += 2;
+				i++;
+				j++;
+			}
+			else if (sPairs[i] < tPairs[j])
+				i++;
+			else
+				j++;
+		}
+		return (double)matches/(n+m);
+	}
+	
 }

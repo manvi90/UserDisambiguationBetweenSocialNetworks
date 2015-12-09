@@ -62,8 +62,8 @@ public class User {
 	private double likelihood;
 	private String requestId;
 	private int status;
-	private String contactInfo_familyName;
-	private String contactInfo_fullName;
-	private String contactInfo_givenName;
+	private String contactInfo_familyName = "";
+	private String contactInfo_fullName = "";
+	private String contactInfo_givenName = "";
 	private Demographic demographic;
 }

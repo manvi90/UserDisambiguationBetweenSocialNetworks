@@ -105,8 +105,10 @@ public class Program {
 			
 		}
 		
+		System.out.println("Read primary data");
 		getSocial("./data/new_social.csv");
 		
+		System.out.println("Read social data");
 		//System.out.println(JsonConverter.getJsonString(listMaster));
 		
 		for(UserProfile user : userlist.values()) {
@@ -114,6 +116,16 @@ public class Program {
 		
 		System.out.println("Initial collection size"+ clusterCollection.size());
 		
+		int counter =0;
+		for(Cluster c : getClusterCollection()){
+			System.out.println("Cluster No" + ++counter);
+			for(UserProfile u : c.getUsers()){
+				System.out.println(u.getEmailId() + ", " + u.getContactInfo_fullName() +", " + u.getContactInfo_givenName() 
+							+ "  " +  u.getContactInfo_familyName() + " " + u.getDemographics_gender());
+			}
+			System.out.println();
+			System.out.println();
+		}
 		findIdenticalProfile(temp);
 		
 		System.out.println("updated collection size"+ clusterCollection.size());
@@ -207,7 +219,7 @@ public class Program {
 			clusterCollection.add(cluster);
 		}
 		
-
+		
 		Set<UserProfile> retVal = null;
 		userlist = new HashMap<>();
 		lastNameMap = new HashMap<>();
@@ -230,13 +242,13 @@ public class Program {
 		retVal = Disambiguator.userDisambiguator(newUser);
 		for(UserProfile result : retVal) {
 			
-			System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName());
+			System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName() + " " + result.getSimScore());
 			for(String string : result.getMapSocial().keySet())
 				System.out.println(string);
 		}
 		
 		ClusterFormation.addToCluster(cluster, newUser);
-		
+		System.out.println("Ended");
 		return retVal;
 	}
 	
@@ -244,15 +256,20 @@ public class Program {
 	static UserProfile temp = null;
 	static {
 		temp = new UserProfile();
-		temp.setContactInfo_familyName("Mascia");
-		temp.setContactInfo_fullName("Paul Mascia");
-		temp.setContactInfo_givenName("Paul");
-		temp.setDemographics_gender(Gender.MALE);
+		temp.setContactInfo_familyName("walker");
+		temp.setContactInfo_fullName("kate walker");
+		temp.setContactInfo_givenName("kate");
+		temp.setDemographics_gender(Gender.FEMALE);
 		Set<String> location = new HashSet<>();
-		location.add("New York");
-		location.add("United States");
-		location.add("North America");
+		location.add("debary");
+		location.add("fl");
+		location.add("florida");
+		location.add("united states");
+		location.add("north america");
+		location.add("us");
+		location.add("volusia");
 		temp.setLocation(location);
-		temp.setEmailId("08_stang000@live.com");
+		temp.setEmailId("katie123@gmail.com");
+		System.out.println("started");
 	}
 }

@@ -23,7 +23,7 @@ public class ProgramConstants {
 	public static  double LAST_NAME_WEIGHT = 0.25;
 	public static  double USERID_WEIGHT = 0.15;
 	public static  double GENDER_WEIGHT = 0.05;
-	public static  double LOCATION_WEIGHT = 0.01;
+	public static  double LOCATION_WEIGHT = 0.10;
 	
 	public static int COUNT_USER_CLUSTER = 10;
 }

@@ -36,10 +36,13 @@ public abstract class CSVReader<T> {
 				inputLine = bufferedReader.readLine();
 				if (inputLine == null) break;
 				if (inputLine.isEmpty())  continue;
+				inputLine = inputLine.toLowerCase();
+				inputLine = inputLine.replace("\\,","" );
 				T t = (T)parseLine(inputLine);
 				if(t != null) {
 					retVal.add(t);
 				}
+				
 				count++;
 				if(count > Program.getCount()) break;
 			}

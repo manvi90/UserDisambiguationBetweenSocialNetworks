@@ -129,6 +129,14 @@ public class UserProfile {
 		this.mapSocial = mapSocial;
 	}
 	
+	public double getSimScore() {
+		return simScore;
+	}
+
+	public void setSimScore(double simScore) {
+		this.simScore = simScore;
+	}
+	
 	private String emailId;
 	private String contactInfo_familyName;
 	private String contactInfo_fullName;
@@ -138,10 +146,14 @@ public class UserProfile {
 	
 	//Map of TypeId , Social Profiles
 	private Map<String, List<SocialProfile>> mapSocial = new HashMap<>();
+	
+	private double simScore;
 }
 
 class SocialProfile {
 	
+	
+
 	public String getSocialMediaId() {
 		return socialMediaId;
 	}
@@ -178,4 +190,7 @@ class SocialProfile {
 	private String typeId;
 	private String typeName;	
 	private String userName;
+	
+	
+	
 }
