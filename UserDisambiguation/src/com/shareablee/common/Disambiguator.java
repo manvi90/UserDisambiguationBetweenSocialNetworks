@@ -31,10 +31,8 @@ public class Disambiguator {
 		matchingEmailList.addAll(getSimilarLastNames(newUser));
 		matchingEmailList.addAll(getSimilarUserIds(newUser));
 
-		double maxSimScore = 0.0;
-
 		for(String e : matchingEmailList){
-			System.out.println(e);
+			//System.out.println(e);
 		}
 
 

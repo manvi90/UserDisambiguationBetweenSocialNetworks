@@ -18,9 +18,9 @@ public class ClusterFormation {
 	 * @param user
 	 * @return
 	 */
-	public static Cluster findCluster(UserProfile user){
+	public static List<Cluster> findCluster(UserProfile user){
 		
-		Cluster retVal = null;
+		List<Cluster> retVal = new ArrayList<>();
 		
 		for (Cluster cluster : Program.getClusterCollection()) {
 			double similarityScore = 0;
@@ -42,8 +42,8 @@ public class ClusterFormation {
 			double avgSimilarityScore = similarityScore / count;
 			
 			if(avgSimilarityScore >= ProgramConstants.CLUSTER_THRESHOLD) {
-				retVal = cluster;
-				break;
+				retVal.add(cluster);
+				
 			}
 		}
 		

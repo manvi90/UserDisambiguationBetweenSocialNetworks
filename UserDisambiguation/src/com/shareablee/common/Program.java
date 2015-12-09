@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import com.shareablee.users.User;
@@ -58,7 +59,7 @@ public class Program {
 	}
 
 
-	static int count = 1000;
+	static int count = 10;
 	static Map<String, UserProfile> userlist = new HashMap<>();
 	static Map<String, UserProfileMaster> listMaster = new HashMap<>();
 	static Map<String,List<String>> lastNameMap = new HashMap<>();
@@ -130,8 +131,60 @@ public class Program {
 		
 		System.out.println("updated collection size"+ clusterCollection.size());
 		
-//		Disambiguator.userDisambiguator(temp);
-//		System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName());
+		//testing
+		UserProfile newUser = new UserProfile();
+
+		Scanner in = new Scanner(System.in);
+		int input = 1;
+		while(input != 0){
+			System.out.println("1.Email");
+			System.out.println("2.First name");
+			System.out.println("3.Last Name");
+			System.out.println("4.Location");
+			System.out.println("5.Gender");
+			System.out.println("6.Execute");
+			System.out.println("7.Clear All");
+			System.out.println("0.Exit");
+			System.out.println("Enter choice:");
+			input = Integer.parseInt(in.nextLine());
+			
+			switch(input) {
+			case 1: 
+				System.out.println("Enter mail : ");
+				newUser.setEmailId(in.nextLine());
+				break;
+			case 2: 
+				System.out.println("Enter first name : ");
+				newUser.setContactInfo_givenName(in.nextLine());
+				break;
+			case 3: 
+				System.out.println("Enter last name : ");
+				newUser.setContactInfo_familyName(in.nextLine());
+				break;
+			case 4:
+				System.out.println("Enter location");
+				String temp = in.nextLine();
+				newUser.getLocation().add(temp);
+				break;
+			case 5: 
+				System.out.println("Press 1 for Male, 2 for Female 3 for others");
+				int gen = Integer.parseInt(in.nextLine());
+				switch(gen) {
+				case 1: 
+					newUser.setDemographics_gender(Gender.MALE); break;
+				case 2:
+					newUser.setDemographics_gender(Gender.FEMALE); break;
+				default:
+					newUser.setDemographics_gender(Gender.UNKNOWN); break;
+				}
+			case 6 :
+				findIdenticalProfile(newUser); break;
+			default:
+				newUser = new UserProfile();
+			}
+		}
+		
+		in.close();
 		
 	}
 
@@ -202,21 +255,24 @@ public class Program {
 	 * @param user
 	 */
 	public static void processUser(UserProfile newUser){
-		Cluster cluster = ClusterFormation.findCluster(newUser);
-		if (cluster == null){
-			cluster = new Cluster();
-			clusterCollection.add(cluster);
+		List<Cluster> clusterList = ClusterFormation.findCluster(newUser);
+		if (clusterList == null || clusterList.isEmpty() || clusterList.size() <= 0){
+			Cluster tempcluster = new Cluster();
+			clusterCollection.add(tempcluster);
+			clusterList.add(tempcluster);
 		}
-		
-		ClusterFormation.addToCluster(cluster, newUser);
+		for(Cluster cluster : clusterList){
+			ClusterFormation.addToCluster(cluster, newUser);
+		}
 	}
 	
 	
 	public static Set<UserProfile> findIdenticalProfile(UserProfile newUser){
-		Cluster cluster = ClusterFormation.findCluster(newUser);
-		if (cluster == null){
-			cluster = new Cluster();
-			clusterCollection.add(cluster);
+		List<Cluster> clusterList = ClusterFormation.findCluster(newUser);
+		if (clusterList == null || clusterList.isEmpty() || clusterList.size() <= 0){
+			Cluster tempcluster = new Cluster();
+			clusterCollection.add(tempcluster);
+			clusterList.add(tempcluster);
 		}
 		
 		
@@ -225,29 +281,33 @@ public class Program {
 		lastNameMap = new HashMap<>();
 		firstNameMap = new HashMap<>();
 		
-		for (UserProfile user : cluster.getUsers()){
-			userlist.put(user.getEmailId(), user);
-			
-			if(lastNameMap.get(user.getContactInfo_familyName()) == null) {
-				lastNameMap.put(user.getContactInfo_familyName(), new ArrayList<>());
+		for (Cluster cluster : clusterList){
+			for (UserProfile user : cluster.getUsers()){
+				userlist.put(user.getEmailId(), user);
+				
+				if(lastNameMap.get(user.getContactInfo_familyName()) == null) {
+					lastNameMap.put(user.getContactInfo_familyName(), new ArrayList<>());
+				}
+				lastNameMap.get(user.getContactInfo_familyName()).add(user.getEmailId());
+				
+				if(firstNameMap.get(user.getContactInfo_givenName()) == null) {
+					firstNameMap.put(user.getContactInfo_givenName(), new ArrayList<>());
+				}
+				firstNameMap.get(user.getContactInfo_givenName()).add(user.getEmailId());
 			}
-			lastNameMap.get(user.getContactInfo_familyName()).add(user.getEmailId());
-			
-			if(firstNameMap.get(user.getContactInfo_givenName()) == null) {
-				firstNameMap.put(user.getContactInfo_givenName(), new ArrayList<>());
-			}
-			firstNameMap.get(user.getContactInfo_givenName()).add(user.getEmailId());
 		}
 		
 		retVal = Disambiguator.userDisambiguator(newUser);
 		for(UserProfile result : retVal) {
-			
 			System.out.println(result.getEmailId() + " " + result.getContactInfo_fullName() + " " + result.getSimScore());
 			for(String string : result.getMapSocial().keySet())
 				System.out.println(string);
 		}
 		
-		ClusterFormation.addToCluster(cluster, newUser);
+		for(Cluster cluster : clusterList){
+			ClusterFormation.addToCluster(cluster, newUser);
+		}
+
 		System.out.println("Ended");
 		return retVal;
 	}
@@ -256,9 +316,9 @@ public class Program {
 	static UserProfile temp = null;
 	static {
 		temp = new UserProfile();
-		temp.setContactInfo_familyName("walker");
-		temp.setContactInfo_fullName("kate walker");
-		temp.setContactInfo_givenName("kate");
+		temp.setContactInfo_familyName("smith");
+		temp.setContactInfo_fullName("lisa shaver smith");
+		temp.setContactInfo_givenName("lisa");
 		temp.setDemographics_gender(Gender.FEMALE);
 		Set<String> location = new HashSet<>();
 		location.add("debary");
@@ -268,8 +328,8 @@ public class Program {
 		location.add("north america");
 		location.add("us");
 		location.add("volusia");
-		temp.setLocation(location);
-		temp.setEmailId("katie123@gmail.com");
+		//temp.setLocation(location);
+		temp.setEmailId("smith@gmail.com");
 		System.out.println("started");
 	}
 }
