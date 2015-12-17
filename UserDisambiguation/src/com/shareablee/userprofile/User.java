@@ -18,7 +18,7 @@ public class User {
 	/**
 	 * Method that returns the email id of the user
 	 * 
-	 * @return
+	 * @return emailId
 	 */
 	public String getEmailId() {
 		return emailId;
@@ -36,7 +36,7 @@ public class User {
 	/**
 	 * Method to return the family name
 	 * 
-	 * @return
+	 * @return Family name
 	 */
 	public String getContactInfo_familyName() {
 		return contactInfo_familyName;
@@ -54,7 +54,7 @@ public class User {
 	/**
 	 * Method to return the full name
 	 * 
-	 * @return
+	 * @return Full name
 	 */
 	public String getContactInfo_fullName() {
 		return contactInfo_fullName;
@@ -72,7 +72,7 @@ public class User {
 	/**
 	 * Method to return the given name of user
 	 * 
-	 * @return
+	 * @return Given name
 	 */
 	public String getContactInfo_givenName() {
 		return contactInfo_givenName;
@@ -90,7 +90,7 @@ public class User {
 	/**
 	 * Method that returns the gender
 	 * 
-	 * @return
+	 * @return gender
 	 */
 	public Gender getDemographics_gender() {
 		return demographics_gender;
@@ -108,7 +108,7 @@ public class User {
 	/**
 	 * Method that return the location of the user
 	 * 
-	 * @return
+	 * @return Collection of location strings
 	 */
 	public Set<String> getLocation() {
 		return location;
@@ -123,12 +123,20 @@ public class User {
 		this.location = location;
 	}
 
-	public double getSimScore() {
-		return simScore;
+	/**
+	 * 
+	 * @return similarity score
+	 */
+	public double getSimilarityScore() {
+		return similarityScore;
 	}
 
-	public void setSimScore(double simScore) {
-		this.simScore = simScore;
+	/**
+	 * 
+	 * @param similarityScore
+	 */
+	public void setSimilarityScore(double similarityScore) {
+		this.similarityScore = similarityScore;
 	}
 
 	private String emailId;
@@ -138,5 +146,5 @@ public class User {
 	private Gender demographics_gender;
 	private Set<String> location = new HashSet<>();
 
-	private double simScore;
+	private double similarityScore;
 }

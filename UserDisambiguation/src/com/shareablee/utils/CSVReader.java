@@ -23,7 +23,7 @@ public abstract class CSVReader<T> {
 	 * Method to parse the read line and convert it into an object
 	 * 
 	 * @param inputLine
-	 * @return
+	 * @return The object of type T
 	 */
 	public abstract T parseLine(String inputLine);
 
@@ -42,7 +42,7 @@ public abstract class CSVReader<T> {
 	 * Method to read the csv file line by line
 	 * 
 	 * @param filePath
-	 * @return
+	 * @return Collection of objects of type T
 	 */
 	public List<T> getData(String filePath) {
 

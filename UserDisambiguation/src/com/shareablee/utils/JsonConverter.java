@@ -8,7 +8,7 @@ public class JsonConverter<T> {
 	 * Convert an object to Json String
 	 * 
 	 * @param obj
-	 * @return
+	 * @return Json string representation of the object 
 	 */
 	public static <T> String getJsonString(T obj) {
 		Gson gson = new Gson();
@@ -20,7 +20,7 @@ public class JsonConverter<T> {
 	 * 
 	 * @param jsonString
 	 * @param objectClass
-	 * @return
+	 * @return Object of type T representing the Json String 
 	 */
 	public static <T> T getObjectFromJson(final String jsonString,
 			final Class<T> objectClass) {

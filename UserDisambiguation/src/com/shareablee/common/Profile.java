@@ -40,7 +40,7 @@ public class Profile {
 	 * Method that returns the list of social profiles, key = email id value =
 	 * other information about the user.
 	 * 
-	 * @return
+	 * @return Collection of Social profiles for the user
 	 */
 	public Map<String, List<Social>> getMapSocial() {
 		return mapSocial;
@@ -57,6 +57,6 @@ public class Profile {
 
 	private User user;
 
-	// Map of TypeId , SocialMaster Profiles
+	// Map of TypeId , Social Profiles
 	private Map<String, List<Social>> mapSocial = new HashMap<>();
 }

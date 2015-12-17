@@ -14,16 +14,16 @@ import com.shareablee.common.Profile;
  */
 public class Cluster {
 	/**
-	 * Method to return the list of profiles in a given cluster.
+	 * Returns the list of profiles in a cluster.
 	 * 
-	 * @return
+	 * @return Collection of profiles present in the cluster
 	 */
 	public List<Profile> getProfiles() {
 		return profiles;
 	}
 
 	/**
-	 * Method to add the profile to the cluster.
+	 * Adds the profile to the cluster.
 	 * 
 	 * @param profile
 	 */

@@ -11,7 +11,7 @@ package com.shareablee.socialprofile;
  */
 public class SocialMaster {
 	/**
-	 * Method to set the email id from user's social profile
+	 * Constructor to set the email id
 	 * 
 	 * @param id
 	 */
@@ -20,7 +20,7 @@ public class SocialMaster {
 	}
 
 	/**
-	 * Method to set the email id and social media id
+	 * Constructor to set the email id and social media id
 	 * 
 	 * @param id
 	 * @param socialMediaId
@@ -33,7 +33,7 @@ public class SocialMaster {
 	/**
 	 * Method to return the email id
 	 * 
-	 * @return
+	 * @return emailId
 	 */
 	public String getEmailId() {
 		return emailId;
@@ -42,16 +42,16 @@ public class SocialMaster {
 	/**
 	 * Method to set the email id of the user
 	 * 
-	 * @param id
+	 * @param emailId
 	 */
-	public void setId(String id) {
-		this.emailId = id;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	/**
 	 * Method that returns the user biographical information
 	 * 
-	 * @return
+	 * @return bio
 	 */
 	public String getBio() {
 		return bio;
@@ -87,7 +87,7 @@ public class SocialMaster {
 	/**
 	 * Method that return the RSS of the user
 	 * 
-	 * @return
+	 * @return rss
 	 */
 	public String getRss() {
 		return rss;
@@ -105,7 +105,7 @@ public class SocialMaster {
 	/**
 	 * Method that returns the type ID of social media
 	 * 
-	 * @return
+	 * @return typeId
 	 */
 	public String getTypeId() {
 		return typeId;
@@ -123,7 +123,7 @@ public class SocialMaster {
 	/**
 	 * Method to return the type name of the social profile
 	 * 
-	 * @return
+	 * @return typeName
 	 */
 	public String getTypeName() {
 		return typeName;
@@ -141,7 +141,7 @@ public class SocialMaster {
 	/**
 	 * Method to return the user social url
 	 * 
-	 * @return
+	 * @return url
 	 */
 	public String getUrl() {
 		return url;
@@ -159,7 +159,7 @@ public class SocialMaster {
 	/**
 	 * Method to return the user name of the user
 	 * 
-	 * @return
+	 * @return userName
 	 */
 	public String getUserName() {
 		return userName;
@@ -177,7 +177,7 @@ public class SocialMaster {
 	/**
 	 * Method to return the number of followers
 	 * 
-	 * @return
+	 * @return number of followers
 	 */
 	public int getFollowers() {
 		return followers;
@@ -195,7 +195,7 @@ public class SocialMaster {
 	/**
 	 * Method to return the number of users followed by the user.
 	 * 
-	 * @return
+	 * @return number of people being followed
 	 */
 	public int getFollowing() {
 		return following;

@@ -21,6 +21,10 @@ import com.shareablee.utils.Util;
  */
 public class Disambiguator {
 
+	/**
+	 * Method adds the profile details to the various internal maps against which the similarity scores have to be performed
+	 * @param profile
+	 */
 	public void addProfile(Profile profile) {
 		User user = profile.getUser();
 		this.emailMap.put(user.getEmailId(), profile);
@@ -41,26 +45,27 @@ public class Disambiguator {
 	}
 
 	/**
-	 * Method to calculate total similarity score.
+	 * Finds the profiles similar to give new profile
 	 * 
 	 * @param newProfile
-	 * @return
+	 * @return Collection of profiles similar to the newProfile
 	 */
 	public Set<Profile> userDisambiguator(Profile newProfile) {
 
 		Set<Profile> retVal = new HashSet<>();
-		Set<String> matchingEmailList = new HashSet<>();
+		Set<String> matchingEmails = new HashSet<>();
 
-		matchingEmailList.addAll(getSimilarEmails(newProfile));
-		matchingEmailList.addAll(getSimilarFirstNames(newProfile));
-		matchingEmailList.addAll(getSimilarLastNames(newProfile));
-		matchingEmailList.addAll(getSimilarUserIds(newProfile));
+		// get all the potential emails that could have similar profiles
+		matchingEmails.addAll(getSimilarEmails(newProfile));
+		matchingEmails.addAll(getSimilarFirstNames(newProfile));
+		matchingEmails.addAll(getSimilarLastNames(newProfile));
+		matchingEmails.addAll(getSimilarUserIds(newProfile));
 
-		for (String email : matchingEmailList) {
+		for (String email : matchingEmails) {
 			System.out.println(email);
 		}
 
-		for (String email : matchingEmailList) {
+		for (String email : matchingEmails) {
 			double count = 0;
 
 			Profile profile = this.emailMap.get(email);
@@ -137,7 +142,7 @@ public class Disambiguator {
 
 			if (Constants.USER_SIMILARITY_THRESHOLD <= simScore) {
 				retVal.add(profile);
-				profile.getUser().setSimScore(simScore);
+				profile.getUser().setSimilarityScore(simScore);
 
 			}
 
@@ -150,7 +155,7 @@ public class Disambiguator {
 	 * lies in the threshold, add it to the matching email list
 	 * 
 	 * @param newProfile
-	 * @return
+	 * @return Collection of similar Emails
 	 */
 	private Set<String> getSimilarEmails(Profile newProfile) {
 		Set<String> matchingEmailList = new HashSet<>();
@@ -185,7 +190,7 @@ public class Disambiguator {
 	 * to the matching email list.
 	 *
 	 * @param newProfile
-	 * @return
+	 * @return Collection of similar Emails
 	 */
 	private Set<String> getSimilarFirstNames(Profile newProfile) {
 		Set<String> matchingEmailList = new HashSet<>();
@@ -215,7 +220,7 @@ public class Disambiguator {
 	 * to the matching email list.
 	 * 
 	 * @param newProfile
-	 * @return
+	 * @return Collection of similar Emails
 	 */
 	private Set<String> getSimilarLastNames(Profile newProfile) {
 		Set<String> matchingEmailList = new HashSet<>();
@@ -244,7 +249,7 @@ public class Disambiguator {
 	 * 
 	 * @param newProfile
 	 * @param profile
-	 * @return
+	 * @return Similarity between profiles based on location
 	 */
 	private double calculateLocationSimilarityScore(Profile newProfile,
 			Profile profile) {
@@ -272,7 +277,7 @@ public class Disambiguator {
 	 * to the matching email list.
 	 * 
 	 * @param newProfile
-	 * @return
+	 * @return Collection of similar Emails based on userId
 	 */
 	private Set<String> getSimilarUserIds(Profile newProfile) {
 		Set<String> matchingEmailList = new HashSet<>();
@@ -379,7 +384,7 @@ public class Disambiguator {
 	 * 
 	 * @param newProfile
 	 * @param existingProfile
-	 * @return
+	 * @return Similarity score between two profiles based on UsedId
 	 */
 	private double calculateUserIdSimilarityScore(Profile newProfile,
 			Profile existingProfile) {
@@ -416,7 +421,7 @@ public class Disambiguator {
 	 * 
 	 * @param profile1
 	 * @param profile2
-	 * @return
+	 * @return Similarity score between two profiles
 	 */
 	public double caluclateSimilarities(Profile profile1,
 			Profile profile2) {

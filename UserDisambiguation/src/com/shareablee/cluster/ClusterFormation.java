@@ -17,10 +17,10 @@ import com.shareablee.common.Program;
  */
 public class ClusterFormation {
 	/**
-	 * Method to find the most similar cluster to the given user.
+	 * Method to find the most similar clusters to the given profile.
 	 * 
 	 * @param profile
-	 * @return
+	 * @return Collection of potential clusters
 	 */
 	public static List<Cluster> findCluster(Profile profile) {
 
@@ -28,28 +28,29 @@ public class ClusterFormation {
 
 		for (Cluster cluster : Program.getClusterCollection()) {
 			double similarityScore = 0;
-			// pick randomly
-			List<Profile> randomUsers = new ArrayList<>();
-			// select random 25% users
+			List<Profile> randomProfiles = new ArrayList<>();
+			// select 25% profiles + 10 randomly from a cluster 
 			int limit = cluster.getProfiles().size() / 4 + 10;
 			while (cluster.getProfiles().size() > 0
-					&& randomUsers.size() < limit) {
-				randomUsers.add(cluster.getProfiles().remove(
+					&& randomProfiles.size() < limit) {
+				randomProfiles.add(cluster.getProfiles().remove(
 						(int) (Math.random() * cluster.getProfiles().size())));
 			}
 
-			int count = randomUsers.size();
+			int count = randomProfiles.size();
 
 			Disambiguator disambiguator = new Disambiguator();
 
-			while (randomUsers.size() > 0) {
+			// measure the similarity between the random profiles and the new incoming profile 
+			while (randomProfiles.size() > 0) {
 				similarityScore += disambiguator.caluclateSimilarities(profile,
-						randomUsers.get(0));
-				cluster.addProfile(randomUsers.remove(0));
+						randomProfiles.get(0));
+				cluster.addProfile(randomProfiles.remove(0));
 			}
 
 			double avgSimilarityScore = similarityScore / count;
 
+			// if the average similarity is greater, selet the cluster as one of the potential candidates
 			if (avgSimilarityScore >= Constants.CLUSTER_THRESHOLD) {
 				retVal.add(cluster);
 
@@ -60,7 +61,7 @@ public class ClusterFormation {
 	}
 
 	/**
-	 * Method that add in cluster the new user coming.
+	 * Adds a new profile to the cluster
 	 * 
 	 * @param cluster
 	 * @param profile

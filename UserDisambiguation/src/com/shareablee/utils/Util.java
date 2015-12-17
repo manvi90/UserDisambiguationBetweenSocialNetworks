@@ -18,7 +18,7 @@ public class Util {
 	 * @param x
 	 * @param y
 	 * @param z
-	 * @return
+	 * @return Minimum of three numbers
 	 */
 	private static int min(int x, int y, int z) {
 		return Math.min(Math.min(x, y), z);
@@ -76,7 +76,7 @@ public class Util {
 	 * 
 	 * @param str1
 	 * @param str2
-	 * @return
+	 * @return Similarity score
 	 */
 	public static double getJaroWinklerDistanceSimilarity(String str1,
 			String str2) {
@@ -93,7 +93,7 @@ public class Util {
 	 * 
 	 * @param str1
 	 * @param str2
-	 * @return
+	 * @return Similarity score
 	 */
 	public static double getDiceSimilarity(String str1, String str2) {
 		// Verifying the input:

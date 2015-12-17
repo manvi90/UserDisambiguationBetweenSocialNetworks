@@ -14,7 +14,7 @@ public class Location {
 	/**
 	 * Method that returns the general location
 	 * 
-	 * @return
+	 * @return locationGeneral
 	 */
 	public String getLocationGeneral() {
 		return locationGeneral;
@@ -32,7 +32,7 @@ public class Location {
 	/**
 	 * Method to return the deduced location
 	 * 
-	 * @return
+	 * @return locationDeduced_deducedLocation
 	 */
 	public String getLocationDeduced_deducedLocation() {
 		return locationDeduced_deducedLocation;
@@ -51,7 +51,7 @@ public class Location {
 	/**
 	 * Method to return the likelihood for deduced location
 	 * 
-	 * @return
+	 * @return locationDeduced_likelihood
 	 */
 	public String getLocationDeduced_likelihood() {
 		return locationDeduced_likelihood;
@@ -69,7 +69,7 @@ public class Location {
 	/**
 	 * Method to return the normalized location
 	 * 
-	 * @return
+	 * @return locationDeduced_normalizedLocation
 	 */
 	public String getLocationDeduced_normalizedLocation() {
 		return locationDeduced_normalizedLocation;
@@ -88,7 +88,7 @@ public class Location {
 	/**
 	 * Method to return the deduced city
 	 * 
-	 * @return
+	 * @return locationDeduced_city_deduced
 	 */
 	public String getLocationDeduced_city_deduced() {
 		return locationDeduced_city_deduced;
@@ -107,7 +107,7 @@ public class Location {
 	/**
 	 * Method to return the deduced city name
 	 * 
-	 * @return
+	 * @return locationDeduced_city_name
 	 */
 	public String getLocationDeduced_city_name() {
 		return locationDeduced_city_name;
@@ -125,7 +125,7 @@ public class Location {
 	/**
 	 * Method to return the deduced continent.
 	 * 
-	 * @return
+	 * @return locationDeduced_continent_deduced
 	 */
 	public String getLocationDeduced_continent_deduced() {
 		return locationDeduced_continent_deduced;
@@ -143,7 +143,7 @@ public class Location {
 	/**
 	 * Method to return the deduced continent name
 	 * 
-	 * @return
+	 * @return locationDeduced_continent_name
 	 */
 	public String getLocationDeduced_continent_name() {
 		return locationDeduced_continent_name;
@@ -162,7 +162,7 @@ public class Location {
 	/**
 	 * Method to return the deduced country code
 	 * 
-	 * @return
+	 * @return locationDeduced_country_code
 	 */
 	public String getLocationDeduced_country_code() {
 		return locationDeduced_country_code;
@@ -181,7 +181,7 @@ public class Location {
 	/**
 	 * Method to return the deduced country
 	 * 
-	 * @return
+	 * @return locationDeduced_country_deduced
 	 */
 	public String getLocationDeduced_country_deduced() {
 		return locationDeduced_country_deduced;
@@ -200,7 +200,7 @@ public class Location {
 	/**
 	 * Method to return the deduced country name
 	 * 
-	 * @return
+	 * @return locationDeduced_country_name
 	 */
 	public String getLocationDeduced_country_name() {
 		return locationDeduced_country_name;
@@ -219,7 +219,7 @@ public class Location {
 	/**
 	 * Method to return the deduced county code
 	 * 
-	 * @return
+	 * @return locationDeduced_county_code
 	 */
 	public String getLocationDeduced_county_code() {
 		return locationDeduced_county_code;
@@ -238,7 +238,7 @@ public class Location {
 	/**
 	 * Method to return the county deduced.
 	 * 
-	 * @return
+	 * @return locationDeduced_county_deduced
 	 */
 	public String getLocationDeduced_county_deduced() {
 		return locationDeduced_county_deduced;
@@ -257,7 +257,7 @@ public class Location {
 	/**
 	 * Method to return the county name
 	 * 
-	 * @return
+	 * @return locationDeduced_county_name
 	 */
 	public String getLocationDeduced_county_name() {
 		return locationDeduced_county_name;
@@ -276,7 +276,7 @@ public class Location {
 	/**
 	 * Method to return the state code
 	 * 
-	 * @return
+	 * @return locationDeduced_state_code
 	 */
 	public String getLocationDeduced_state_code() {
 		return locationDeduced_state_code;
@@ -294,7 +294,7 @@ public class Location {
 	/**
 	 * Method to return the deduced state
 	 * 
-	 * @return
+	 * @return locationDeduced_state_deduced
 	 */
 	public String getLocationDeduced_state_deduced() {
 		return locationDeduced_state_deduced;
@@ -313,7 +313,7 @@ public class Location {
 	/**
 	 * Method to set the state name
 	 * 
-	 * @return
+	 * @return locationDeduced_state_name
 	 */
 	public String getLocationDeduced_state_name() {
 		return locationDeduced_state_name;
@@ -332,7 +332,7 @@ public class Location {
 	 * Method to build the location map, this combines all the existing location
 	 * fields into one.
 	 * 
-	 * @return
+	 * @return String representation of location
 	 */
 	public Set<String> getLocationMap() {
 
@@ -375,6 +375,9 @@ public class Location {
 
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public String toString() {
 		StringBuilder retVal = new StringBuilder();

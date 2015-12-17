@@ -186,7 +186,7 @@ public class Program {
 		for (Profile profile : retVal) {
 			System.out.println(profile.getUser().getEmailId() + " "
 					+ profile.getUser().getContactInfo_fullName() + " "
-					+ profile.getUser().getSimScore());
+					+ profile.getUser().getSimilarityScore());
 			for (String string : profile.getMapSocial().keySet())
 				System.out.println(string);
 		}

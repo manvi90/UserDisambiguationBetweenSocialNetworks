@@ -11,34 +11,66 @@ package com.shareablee.socialprofile;
  */
 public class Social {
 
+	/**
+	 * 
+	 * @return socialMediaId
+	 */
 	public String getSocialMediaId() {
 		return socialMediaId;
 	}
 
+	/**
+	 * 
+	 * @param socialMediaId
+	 */
 	public void setSocialMediaId(String socialMediaId) {
 		this.socialMediaId = socialMediaId;
 	}
 
+	/**
+	 * 
+	 * @return typeId
+	 */
 	public String getTypeId() {
 		return typeId;
 	}
 
+	/**
+	 * 
+	 * @param typeId
+	 */
 	public void setTypeId(String typeId) {
 		this.typeId = typeId;
 	}
 
+	/**
+	 * 
+	 * @return typeName
+	 */
 	public String getTypeName() {
 		return typeName;
 	}
 
+	/**
+	 * 
+	 * @param typeName
+	 */
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
 
+	/**
+	 * 
+	 * @return userName
+	 */
 	public String getUserName() {
 		return userName;
 	}
 
+	/**
+	 * 
+	 * @param userName
+	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}

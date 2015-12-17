@@ -2,10 +2,25 @@ package com.shareablee.utils;
 
 import java.util.Arrays;
 
+/**
+ * The code is used from Lucene library
+ * 
+ * @author ravidugar
+ *
+ */
 public class JaroWinklerDistance {
 
+	/**
+	 * 
+	 */
 	private float threshold = 0.7f;
 
+	/**
+	 * 
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
 	private int[] matches(String s1, String s2) {
 		String max, min;
 		if (s1.length() > s2.length()) {
@@ -63,6 +78,12 @@ public class JaroWinklerDistance {
 		return new int[] { matches, transpositions / 2, prefix, max.length() };
 	}
 
+	/**
+	 * 
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
 	public float getDistance(String s1, String s2) {
 		int[] mtp = matches(s1, s2);
 		float m = mtp[0];

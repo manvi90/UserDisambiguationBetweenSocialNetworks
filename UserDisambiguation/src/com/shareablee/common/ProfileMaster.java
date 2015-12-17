@@ -38,16 +38,22 @@ public class ProfileMaster {
 
 	/**
 	 * 
-	 * @return
+	 * @return Collection of Social profiles for the user
 	 */
 	public Map<String, List<SocialMaster>> getMapSocial() {
 		return mapSocial;
 	}
 
+	/**
+	 * 
+	 * @param mapSocial
+	 */
 	public void setMapSocial(Map<String, List<SocialMaster>> mapSocial) {
 		this.mapSocial = mapSocial;
 	}
 
 	private UserMaster userMaster;
+	
+	// Map of TypeId , SocialMaster Profiles
 	private Map<String, List<SocialMaster>> mapSocial = new HashMap<String, List<SocialMaster>>();
 }
