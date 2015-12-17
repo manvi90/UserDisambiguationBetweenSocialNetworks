@@ -26,7 +26,7 @@ public class Util {
 
 	/**
 	 * Method to get the edit distance cost for two strings
-	 * 
+	 * Source : geeksforgeeks.com
 	 * @param str1
 	 * @param str2
 	 * @param m
@@ -90,7 +90,8 @@ public class Util {
 
 	/**
 	 * Method to calculate the dice similarity between the two strings
-	 * 
+	 * This code is taken from the following source :
+	 * https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Dice%27s_coefficient#Java
 	 * @param str1
 	 * @param str2
 	 * @return Similarity score

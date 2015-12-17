@@ -42,6 +42,8 @@ public class SocialCSVReader extends CSVReader<SocialMaster> {
 					break;
 				if (inputLine.isEmpty())
 					continue;
+				inputLine = inputLine.toLowerCase();
+				inputLine = inputLine.replace("\\,", "");
 				count++;
 				SocialMaster socialMaster = parseLine(inputLine);
 				if (socialMaster != null) {

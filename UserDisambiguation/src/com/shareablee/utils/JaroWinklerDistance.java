@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * The code is used from Lucene library
+ * http://grepcode.com/file/repo1.maven.org/maven2/org.apache.lucene/lucene-suggest/4.0.0/org/apache/lucene/search/spell/JaroWinklerDistance.java
  * 
  * @author ravidugar
  *
