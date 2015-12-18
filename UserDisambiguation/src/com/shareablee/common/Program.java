@@ -114,14 +114,26 @@ public class Program {
 		sc.close();
 	}
 
+	/**
+	 * 
+	 * @return Number of records to be read
+	 */
 	public static int getCount() {
 		return count;
 	}
 
+	/**
+	 * 
+	 * @return  Collection of clusters
+	 */
 	public static List<Cluster> getClusterCollection() {
 		return clusterCollection;
 	}
 
+	/**
+	 * 
+	 * @return Collection of Profiles
+	 */
 	public static Map<String, ProfileMaster> getListMaster() {
 		return listMaster;
 	}
@@ -144,6 +156,11 @@ public class Program {
 		}
 	}
 
+	/**
+	 * Method finds the identical profiles
+	 * @param newUser
+	 * @return Collection of identical Profiles
+	 */
 	private static Set<Profile> findIdenticalProfile(Profile newUser) {
 		List<Cluster> clusterList = ClusterFormation.findCluster(newUser);
 		if (clusterList == null || clusterList.isEmpty()
@@ -174,9 +191,9 @@ public class Program {
 	}
 
 	/**
-	 * 
+	 * Method updates the profile master with user master
 	 * @param userMasters
-	 * @return
+	 * @return Collection of users with relevant features
 	 */
 	private static Map<String, Object> fillMasterList(
 			List<UserMaster> userMasters) {
@@ -205,23 +222,7 @@ public class Program {
 		return users;
 	}
 
-	private static int count = 1000;
+	private static final int count = 1000;
 	private static Map<String, ProfileMaster> listMaster = new HashMap<>();
 	private static List<Cluster> clusterCollection = new ArrayList<Cluster>();
-
-	// test code
-	/*
-	 * private static Profile testProfile = null; static { testProfile = new
-	 * Profile(); testProfile.setUser(new User());
-	 * testProfile.getUser().setContactInfo_familyName("smith");
-	 * testProfile.getUser().setContactInfo_fullName("lisa shaver smith");
-	 * testProfile.getUser().setContactInfo_givenName("lisa");
-	 * testProfile.getUser().setDemographics_gender(Gender.FEMALE); Set<String>
-	 * location = new HashSet<>(); location.add("debary"); location.add("fl");
-	 * location.add("florida"); location.add("united states");
-	 * location.add("north america"); location.add("us");
-	 * location.add("volusia"); // testProfile.setLocation(location);
-	 * testProfile.getUser().setEmailId("smith@gmail.com");
-	 * System.out.println("started"); }
-	 */
 }

@@ -9,13 +9,16 @@ import com.shareablee.utils.Location;
 import com.shareablee.utils.Range;
 
 /**
- * Class for testing
+ * Class to read the Test CSV file
  * 
  * @author Madhuri
  *
  */
 public class TestCSVReader extends CSVReader<TestProfile> {
 
+	/**
+	 * 
+	 */
 	@Override
 	public TestProfile parseLine(String inputLine) {
 		TestProfile retVal = new TestProfile();
