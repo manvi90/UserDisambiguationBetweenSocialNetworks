@@ -62,16 +62,13 @@ public class Disambiguator {
 		matchingEmails.addAll(getSimilarUserIds(newProfile));
 
 		for (String email : matchingEmails) {
-			System.out.println(email);
-		}
-
-		for (String email : matchingEmails) {
 			double count = 0;
 
 			Profile profile = this.emailMap.get(email);
-			double emailSim = Util.getDiceSimilarity(profile.getUser()
+			/*double emailSim = Util.getDiceSimilarity(profile.getUser()
 					.getEmailId(), newProfile.getUser().getEmailId());
-
+			 */
+			double emailSim = 0;
 			double emailWithoutDomainSim = 0;
 			double fnameSim = 0;
 			double lnameSim = 0;
@@ -160,25 +157,13 @@ public class Disambiguator {
 	private Set<String> getSimilarEmails(Profile newProfile) {
 		Set<String> matchingEmailList = new HashSet<>();
 		for (String existingEmail : this.emailMap.keySet()) {
-			/*
-			 * double simScore =
-			 * Utilities.getSimilarity(newProfile.getEmailId(),
-			 * existingEmail,true);
-			 */
-			double simScore = 0.0;
-			if (simScore < Constants.EMAIL_THRESHOLD) {
-				simScore = Util.getDiceSimilarity(newProfile.getUser()
+			double simScore = Util.getDiceSimilarity(newProfile.getUser()
 						.getEmailId().split("@")[0],
 						existingEmail.split("@")[0]);
 
-				if (simScore >= Constants.EMAIL_THRESHOLD) {
-					matchingEmailList.add(existingEmail);
-				}
-
-			} else {
+			if (simScore >= Constants.EMAIL_THRESHOLD) {
 				matchingEmailList.add(existingEmail);
 			}
-
 		}
 
 		return matchingEmailList;

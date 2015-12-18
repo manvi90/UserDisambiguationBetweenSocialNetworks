@@ -53,8 +53,8 @@ public class SocialCSVReader extends CSVReader<SocialMaster> {
 						if (profileMaster.getMapSocial().get(
 								socialMaster.getTypeId()) == null) {
 							profileMaster.getMapSocial()
-									.put(socialMaster.getTypeId(),
-											new ArrayList<>());
+							.put(socialMaster.getTypeId(),
+									new ArrayList<>());
 						}
 						List<SocialMaster> socialList = profileMaster
 								.getMapSocial().get(socialMaster.getTypeId());
@@ -67,8 +67,8 @@ public class SocialCSVReader extends CSVReader<SocialMaster> {
 						if (profile.getMapSocial()
 								.get(socialMaster.getTypeId()) == null) {
 							profile.getMapSocial()
-									.put(socialMaster.getTypeId(),
-											new ArrayList<>());
+							.put(socialMaster.getTypeId(),
+									new ArrayList<>());
 						}
 						List<Social> socialList = profile.getMapSocial().get(
 								socialMaster.getTypeId());
@@ -109,24 +109,27 @@ public class SocialCSVReader extends CSVReader<SocialMaster> {
 		SocialMaster retVal = null;
 
 		String[] inputLineArray = inputLine.split(",");
-		retVal = new SocialMaster(inputLineArray[0]); // ID
-		retVal.setBio(inputLineArray[1]); // BIO
+		try{
+			retVal = new SocialMaster(inputLineArray[0]); // ID
+			retVal.setBio(inputLineArray[1]); // BIO
 
-		if (inputLineArray[2] != null && !inputLineArray[2].isEmpty())
-			retVal.setFollowers(Integer.parseInt(inputLineArray[2])); // followers
-		if (inputLineArray[3] != null && !inputLineArray[3].isEmpty())
-			retVal.setFollowers(Integer.parseInt(inputLineArray[3])); // following
+			if (inputLineArray[2] != null && !inputLineArray[2].isEmpty())
+				retVal.setFollowers(Integer.parseInt(inputLineArray[2])); // followers
+			if (inputLineArray[3] != null && !inputLineArray[3].isEmpty())
+				retVal.setFollowers(Integer.parseInt(inputLineArray[3])); // following
 
-		retVal.setSocialMediaId(inputLineArray[4]); // FB ID
-		retVal.setRss(inputLineArray[5]); // RSS
-		retVal.setTypeId(inputLineArray[6]); // Type ID
-		retVal.setTypeName(inputLineArray[7]); // Type Name
-		retVal.setUrl(inputLineArray[8]); // URL
+			retVal.setSocialMediaId(inputLineArray[4]); // FB ID
+			retVal.setRss(inputLineArray[5]); // RSS
+			retVal.setTypeId(inputLineArray[6]); // Type ID
+			retVal.setTypeName(inputLineArray[7]); // Type Name
+			retVal.setUrl(inputLineArray[8]); // URL
 
-		if (inputLineArray.length > 9) {
-			retVal.setUserName(inputLineArray[9]); // Username
+			if (inputLineArray.length > 9) {
+				retVal.setUserName(inputLineArray[9]); // Username
+			}
+		}catch (Exception e){
+
 		}
-
 		return retVal;
 	}
 

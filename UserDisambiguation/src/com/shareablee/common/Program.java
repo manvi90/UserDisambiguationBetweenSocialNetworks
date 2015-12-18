@@ -16,6 +16,7 @@ import java.util.Set;
 
 import com.shareablee.socialprofile.SocialCSVReader;
 import com.shareablee.socialprofile.SocialMaster;
+import com.shareablee.testing.Test;
 import com.shareablee.userprofile.UserMaster;
 import com.shareablee.userprofile.UserCSVReader;
 import com.shareablee.userprofile.User;
@@ -45,9 +46,11 @@ public class Program {
 		for (Object user : users.values()) {
 			processProfile((Profile) user);
 		}
+		
+		System.out.println("Clusters formed");
 
 		// printing cluster details for verification
-		System.out.println("Initial collection size "
+/*		System.out.println("Initial collection size "
 				+ clusterCollection.size());
 
 		int counter = 0;
@@ -63,17 +66,14 @@ public class Program {
 			System.out.println();
 			System.out.println();
 		}
+*/		
 		
-		// process the dummy profile
-		findIdenticalProfile(testProfile);
-
-		System.out.println("updated collection size "
-				+ clusterCollection.size());
+		//System.out.println("updated collection size "
+			//	+ clusterCollection.size());
 
 		// testing one by one (take profiles as input from the users)
-		User newUser = new User();
-
-		Scanner in = new Scanner(System.in);
+		
+/*		Scanner in = new Scanner(System.in);
 		int input = 1;
 		while (input != 0) {
 			System.out.println("1.Email");
@@ -130,7 +130,17 @@ public class Program {
 			}
 		}
 
-		in.close();
+		in.close(); */
+		Test test = new Test();
+		System.out.println("Read the testing data.");
+		System.out.println("-----------------------");
+		List<Profile> testProfiles = test.getTestData("./data/testPrimary.csv");
+		
+		for(Profile testProfile : testProfiles) {
+			System.out.println("Testing : " + testProfile.getUser().toString());
+			
+			findIdenticalProfile(testProfile);
+		}
 
 	}
 
@@ -191,11 +201,12 @@ public class Program {
 				System.out.println(string);
 		}
 
-		for (Cluster cluster : clusterList) {
+		/*for (Cluster cluster : clusterList) {
 			ClusterFormation.addToCluster(cluster, newUser);
-		}
+		}*/
 
-		System.out.println("Ended");
+		
+		System.out.println("###################################\n");
 		return retVal;
 	}
 
@@ -231,12 +242,12 @@ public class Program {
 		return users;
 	}
 
-	private static int count = 10;
+	private static int count = 100;
 	private static Map<String, ProfileMaster> listMaster = new HashMap<>();
 	private static List<Cluster> clusterCollection = new ArrayList<Cluster>();
 
 	// test code
-	private static Profile testProfile = null;
+	/*private static Profile testProfile = null;
 	static {
 		testProfile = new Profile();
 		testProfile.setUser(new User());
@@ -255,5 +266,5 @@ public class Program {
 		// testProfile.setLocation(location);
 		testProfile.getUser().setEmailId("smith@gmail.com");
 		System.out.println("started");
-	}
+	}*/
 }

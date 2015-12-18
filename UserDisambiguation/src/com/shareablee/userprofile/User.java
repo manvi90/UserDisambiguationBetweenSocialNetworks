@@ -138,6 +138,13 @@ public class User {
 	public void setSimilarityScore(double similarityScore) {
 		this.similarityScore = similarityScore;
 	}
+	
+	@Override
+	public String toString() {
+		String retVal = "";
+		retVal += this.emailId + ", " + this.getContactInfo_fullName() + ", " + this.getContactInfo_givenName() + ", " + this.getContactInfo_familyName() + ", " + this.demographics_gender;
+		return retVal;
+	}
 
 	private String emailId;
 	private String contactInfo_familyName;
