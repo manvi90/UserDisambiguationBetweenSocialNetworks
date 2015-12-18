@@ -8,20 +8,18 @@ import com.shareablee.cluster.ClusterFormation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 
 import com.shareablee.socialprofile.SocialCSVReader;
 import com.shareablee.socialprofile.SocialMaster;
 import com.shareablee.testing.Test;
+import com.shareablee.testing.TestProfile;
 import com.shareablee.userprofile.UserMaster;
 import com.shareablee.userprofile.UserCSVReader;
 import com.shareablee.userprofile.User;
 import com.shareablee.utils.CSVReader;
-import com.shareablee.utils.Gender;
 
 /**
  *
@@ -50,9 +48,7 @@ public class Program {
 		System.out.println("Clusters formed");
 
 		// printing cluster details for verification
-/*		System.out.println("Initial collection size "
-				+ clusterCollection.size());
-
+/*
 		int counter = 0;
 		for (Cluster cluster : getClusterCollection()) {
 			System.out.println("Cluster No " + ++counter);
@@ -68,79 +64,40 @@ public class Program {
 		}
 */		
 		
-		//System.out.println("updated collection size "
-			//	+ clusterCollection.size());
-
-		// testing one by one (take profiles as input from the users)
-		
-/*		Scanner in = new Scanner(System.in);
-		int input = 1;
-		while (input != 0) {
-			System.out.println("1.Email");
-			System.out.println("2.First name");
-			System.out.println("3.Last Name");
-			System.out.println("4.Location");
-			System.out.println("5.Gender");
-			System.out.println("6.Execute");
-			System.out.println("7.Clear All");
-			System.out.println("0.Exit");
-			System.out.println("Enter choice:");
-			input = Integer.parseInt(in.nextLine());
-
-			switch (input) {
-			case 1:
-				System.out.println("Enter mail : ");
-				newUser.setEmailId(in.nextLine());
-				break;
-			case 2:
-				System.out.println("Enter first name : ");
-				newUser.setContactInfo_givenName(in.nextLine());
-				break;
-			case 3:
-				System.out.println("Enter last name : ");
-				newUser.setContactInfo_familyName(in.nextLine());
-				break;
-			case 4:
-				System.out.println("Enter location");
-				String temp = in.nextLine();
-				newUser.getLocation().add(temp);
-				break;
-			case 5:
-				System.out
-						.println("Press 1 for Male, 2 for Female 3 for others");
-				int gen = Integer.parseInt(in.nextLine());
-				switch (gen) {
-				case 1:
-					newUser.setDemographics_gender(Gender.MALE);
-					break;
-				case 2:
-					newUser.setDemographics_gender(Gender.FEMALE);
-					break;
-				default:
-					newUser.setDemographics_gender(Gender.UNKNOWN);
-					break;
-				}
-			case 6:
-				Profile newProfile = new Profile();
-				newProfile.setUser(newUser);
-				findIdenticalProfile(newProfile);
-				break;
-			default:
-				newUser = new User();
-			}
-		}
-
-		in.close(); */
+	
 		Test test = new Test();
 		System.out.println("Read the testing data.");
 		System.out.println("-----------------------");
-		List<Profile> testProfiles = test.getTestData("./data/testPrimary.csv");
+		List<TestProfile> testProfiles = test.getTestData("./data/testPrimary.csv");
 		
-		for(Profile testProfile : testProfiles) {
-			System.out.println("Testing : " + testProfile.getUser().toString());
+		int success = 0;
+		for(TestProfile testProfile : testProfiles) {
+			Set<Profile> results = findIdenticalProfile(testProfile.getProfile());
+			if(results != null) {
+				if ((results.isEmpty() && !testProfile.isMatch()) 
+						|| (!results.isEmpty() && testProfile.isMatch())) {
+						success++;
+						testProfile.setSuccess(true);
+				}
+			}
 			
-			findIdenticalProfile(testProfile);
+			System.out.println("Testing : " + testProfile.getProfile().getUser().toString());
+			System.out.println("Result : " + testProfile.isSuccess());
+			
+			for (Profile profile : results) {
+				System.out.println(profile.getUser().getEmailId() + " "
+						+ profile.getUser().getContactInfo_fullName() + " "
+						+ profile.getUser().getSimilarityScore());
+				for (String string : profile.getMapSocial().keySet())
+					System.out.println(string);
+			}
+
+		
+			System.out.println("###################################\n");
+			
 		}
+		
+		System.out.println("Success = " + (100.0 * success / testProfiles.size()));
 
 	}
 
@@ -193,20 +150,12 @@ public class Program {
 		}
 
 		retVal = disambiguator.userDisambiguator(newUser);
-		for (Profile profile : retVal) {
-			System.out.println(profile.getUser().getEmailId() + " "
-					+ profile.getUser().getContactInfo_fullName() + " "
-					+ profile.getUser().getSimilarityScore());
-			for (String string : profile.getMapSocial().keySet())
-				System.out.println(string);
-		}
-
+		
+		// to be un-commented if the test user has to be added to the cluster
 		/*for (Cluster cluster : clusterList) {
 			ClusterFormation.addToCluster(cluster, newUser);
 		}*/
-
 		
-		System.out.println("###################################\n");
 		return retVal;
 	}
 

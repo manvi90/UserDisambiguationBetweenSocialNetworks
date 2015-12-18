@@ -147,5 +147,5 @@ public class UserMaster {
 	private String contactInfo_familyName = "";
 	private String contactInfo_fullName = "";
 	private String contactInfo_givenName = "";
-	private Demographic demographic;
+	private Demographic demographic = new Demographic();
 }
