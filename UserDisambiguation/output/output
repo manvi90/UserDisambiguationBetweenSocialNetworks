@@ -1,0 +1,355 @@
+Read primary data
+Read social data
+Clusters formed
+
+Enter choice 0 - for break
+1
+Read the testing data.
+-----------------------
+Testing : 006rosie@gmail.com, rosie fernan, rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.9467592537403107
+twitter
+googleplus
+###################################
+
+Testing : 007rosie@gmail.com, rosie fernan, rosie, fernan, UNKNOWN
+Result : true
+006rosie@gmail.com rosie fernan 0.8595938316914215
+twitter
+googleplus
+###################################
+
+Testing : rosiefernan@gmail.com, rosie fernan, rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.7997004302108989
+twitter
+googleplus
+###################################
+
+Testing : 006rosie@yahoo.com, rosie fernan, rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.9467592537403107
+twitter
+googleplus
+###################################
+
+Testing : rosie@gmail.com, rosie fernan, rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.8710016779827349
+twitter
+googleplus
+###################################
+
+Testing : rosie006@gmail.com, rosie fernan, rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.907076714057771
+twitter
+googleplus
+###################################
+
+Testing : rosie_fernan@gmail.com, rosie fernan, rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.7924382660859897
+twitter
+googleplus
+###################################
+
+Testing : 006rosie@gmail.com, rosie fernan, rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.9467592537403107
+twitter
+googleplus
+###################################
+
+Testing : 006rosie@gmail.com, rosie f, rosie, fer, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.9220679038100772
+twitter
+googleplus
+###################################
+
+Testing : 007rosie@gmail.com, , rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.8673941743752313
+twitter
+googleplus
+###################################
+
+Testing : rosiefernan@gmail.com, rosie fernandes, rosie, fernandes, UNKNOWN
+Result : false
+006rosie@gmail.com rosie fernan 0.769944255327271
+twitter
+googleplus
+###################################
+
+Testing : 006rosie@yahoo.com, rosieeee fernan, rosieee, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.932870391342375
+twitter
+googleplus
+###################################
+
+Testing : rosie@gmail.com, rose , rose, fern, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.8367115530100736
+twitter
+googleplus
+1rosie@comcast.net rosetta hunt 0.75725623728737
+facebook
+###################################
+
+Testing : rosie006@gmail.com, rosie fernan, rosie, fernan, UNKNOWN
+Result : true
+006rosie@gmail.com rosie fernan 0.9016106384141106
+twitter
+googleplus
+###################################
+
+Testing : rosie_fernan@gmail.com, rosie fernan, rosie, fernan, MALE
+Result : false
+###################################
+
+Testing : 1235@gmail.com, rosie fernan, rosie, fernan, FEMALE
+Result : true
+###################################
+
+Testing : rose@cornell.edu, rosie martin, rosie , martin, FEMALE
+Result : true
+###################################
+
+Testing : 006rosie@gmail.com, , rosie, fernan, FEMALE
+Result : true
+006rosie@gmail.com rosie fernan 0.9467592537403107
+twitter
+googleplus
+###################################
+
+Testing : ross@gmail.com, , ross, fernan, FEMALE
+Result : true
+###################################
+
+Testing : rose@gmail.com, rosie fernandis, rose, fernendis, UNKNOWN
+Result : true
+###################################
+
+Testing : 00warren@comcast.net, wharingston suero, wharingston, suero, MALE
+Result : true
+00warren@comcast.net wharingston suero 1.0
+facebook
+###################################
+
+Testing : warrenbuffey@gmail.com, warren buffey, buffey, warren, UNKNOWN
+Result : true
+###################################
+
+Testing : phoebebuffey@gmail.com, , , phoebs, UNKNOWN
+Result : true
+###################################
+
+Testing : keatie@gmail.com, wharingston suero, wharingston, suero, UNKNOWN
+Result : false
+###################################
+
+Testing : warren008@gmail.com, , wharingston, s, MALE
+Result : false
+###################################
+
+Testing : 00warren@comcast.net, warren buffey, suero, wharingston, UNKNOWN
+Result : false
+###################################
+
+Testing : 00warren@comcast.net, wharingston suero, wharingston, suero, UNKNOWN
+Result : true
+00warren@comcast.net wharingston suero 1.0
+facebook
+###################################
+
+Testing : 00rice00@gmail.com, andy rice, andy, rice, UNKNOWN
+Result : true
+00rice00@gmail.com andy rice 0.8128654941132195
+twitter
+###################################
+
+Testing : price@cornell.edu, , , price, MALE
+Result : true
+###################################
+
+Testing : price@cornell.edu, , , , UNKNOWN
+Result : true
+###################################
+
+Testing : rice00@comcast.net, andy price, andy, price, MALE
+Result : false
+00rice00@gmail.com andy rice 0.7502924020875964
+twitter
+###################################
+
+Testing : 00katie00@gmail.com, kate walker, kate, walker, FEMALE
+Result : true
+a.katie04@yahoo.com katie 0.7938333272933961
+00katie00@gmail.com kate walker 0.8823529411764706
+foursquare
+###################################
+
+Testing : katie@cornell.edu, katie, katie, holmes, FEMALE
+Result : false
+a.katie04@yahoo.com katie 0.8333333333333334
+23katieo@gmail.com katie joyce 0.7518037607917538
+###################################
+
+Testing : katie@cornell.edu, kate , walks, walks, FEMALE
+Result : true
+###################################
+
+Testing : 01echogirl@gmail.com, melissahengst, , , UNKNOWN
+Result : true
+01echogirl@gmail.com melissahengst 1.0
+twitter
+flickr
+###################################
+
+Testing : 01echogirl@gmail.com, , , , UNKNOWN
+Result : true
+01echogirl@gmail.com melissahengst 0.9285714285714286
+twitter
+flickr
+###################################
+
+Testing : 01echogirl@gmail.com, melissahengst, , hengst, UNKNOWN
+Result : true
+01echogirl@gmail.com melissahengst 0.8106227109829585
+twitter
+flickr
+###################################
+
+Testing : 01echogirl@gmail.com, melissahengst, , hengst, FEMALE
+Result : true
+01echogirl@gmail.com melissahengst 0.8439560443162919
+twitter
+flickr
+###################################
+
+Testing : melissahengst@gmail.com, melissahengst, , hengst, FEMALE
+Result : false
+###################################
+
+Testing : divya@gmail.com, divya, , garg, FEMALE
+Result : true
+###################################
+
+Testing : 01steelerfan@comcast.net, steel, steel, erfan, MALE
+Result : true
+###################################
+
+Testing : 06solstice@gmail.com, candice cobb, candice, , FEMALE
+Result : true
+06solstice@gmail.com candice cobb 0.8316666674613952
+twitter
+facebook
+foursquare
+pinterest
+klout
+22solstice@gmail.com sol.正 0.7777777777777778
+###################################
+
+Testing : 003keith2@gmail.com, keef lovelace, keef, lovelace, UNKNOWN
+Result : true
+003keith2@gmail.com keef lovelace 1.0
+facebook
+foursquare
+###################################
+
+Testing : 01echogirl@gmail.com, melissahengst, , , UNKNOWN
+Result : true
+01echogirl@gmail.com melissahengst 1.0
+twitter
+flickr
+###################################
+
+Testing : mari@msn.com, mari, mari, , UNKNOWN
+Result : true
+11marie14@optonline.net marie adamo 0.7529201141812585
+twitter
+###################################
+
+Testing : 01homes@sbcglobal.net, roland bobinger, roland, bob, MALE
+Result : true
+01homes@sbcglobal.net roland bobinger 0.857986119389534
+twitter
+facebook
+linkedin
+###################################
+
+Testing : 08812@gmatc.matc.edu, michelle manzella, michelle, manzella, FEMALE
+Result : true
+0819812@gmatc.matc.edu michelle manzella 0.8876388900809818
+facebook
+###################################
+
+Testing : moneybags@gmail.com, rayair hopkins, rayair, hopkins, MALE
+Result : false
+00moneybags@gmail.com rayair atkins 0.8804484852302221
+facebook
+###################################
+
+Testing : orlando@charter.net, jeffandbernita orlando, jeff, orlando, FEMALE
+Result : false
+###################################
+
+Testing : orlando@charter.net, jeffberni, jeffberni, orlando, MALE
+Result : false
+###################################
+
+Testing : jeffandbernieorlando@charter.net, jeffandbernita, jeffandbernita, orlando, MALE
+Result : false
+###################################
+
+Testing : 01katie@gmail.com, katja luckas, katja, luke, FEMALE
+Result : false
+01katconnolly@gmail.com katja luckas 0.7569444484180875
+twitter
+gravatar
+facebook
+blogger
+pinterest
+klout
+linkedin
+googleplus
+aboutme
+###################################
+
+Testing : latconnolly@gmail.com, lutcja luckas, lutcja, luke, FEMALE
+Result : false
+01katconnolly@gmail.com katja luckas 0.770303027196364
+twitter
+gravatar
+facebook
+blogger
+pinterest
+klout
+linkedin
+googleplus
+aboutme
+###################################
+
+Testing : killian@cornell.edu, kilian q. weinbeiger, kilian , weinbeiger, UNKNOWN
+Result : false
+###################################
+
+Testing : yy@gmail.com, yogesh, yogi, yasav, MALE
+Result : false
+###################################
+
+Testing : aloversdream@yahoo.com, appalsamy, ramesh, apalsamy, MALE
+Result : true
+###################################
+
+Testing : madhuri@gmail.com, madhri, madhuri , gambhir, FEMALE
+Result : true
+###################################
+
+Success = 71.9298245614035
+
+
+Enter choice 0 - for break
