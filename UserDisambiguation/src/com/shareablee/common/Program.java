@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import com.shareablee.socialprofile.SocialCSVReader;
@@ -44,11 +45,11 @@ public class Program {
 		for (Object user : users.values()) {
 			processProfile((Profile) user);
 		}
-		
+
 		System.out.println("Clusters formed");
 
 		// printing cluster details for verification
-/*
+		/*
 		int counter = 0;
 		for (Cluster cluster : getClusterCollection()) {
 			System.out.println("Cluster No " + ++counter);
@@ -62,43 +63,53 @@ public class Program {
 			System.out.println();
 			System.out.println();
 		}
-*/		
-		
-	
-		Test test = new Test();
-		System.out.println("Read the testing data.");
-		System.out.println("-----------------------");
-		List<TestProfile> testProfiles = test.getTestData("./data/testPrimary.csv");
-		
-		int success = 0;
-		for(TestProfile testProfile : testProfiles) {
-			Set<Profile> results = findIdenticalProfile(testProfile.getProfile());
-			if(results != null) {
-				if ((results.isEmpty() && !testProfile.isMatch()) 
-						|| (!results.isEmpty() && testProfile.isMatch())) {
+		 */		
+
+		while(true){
+			System.out.println();
+			System.out.println("Enter choice 0 - for break");
+			int breakCond = 1;
+			Scanner sc = new Scanner(System.in);
+			breakCond = Integer.parseInt(sc.nextLine());
+			if (breakCond == 0){
+				break;
+			}
+			Test test = new Test();
+			System.out.println("Read the testing data.");
+			System.out.println("-----------------------");
+			List<TestProfile> testProfiles = test.getTestData("./data/testPrimary.csv");
+
+			int success = 0;
+			for(TestProfile testProfile : testProfiles) {
+				Set<Profile> results = findIdenticalProfile(testProfile.getProfile());
+				if(results != null) {
+					if ((results.isEmpty() && !testProfile.isMatch()) 
+							|| (!results.isEmpty() && testProfile.isMatch())) {
 						success++;
 						testProfile.setSuccess(true);
+					}
 				}
-			}
-			
-			System.out.println("Testing : " + testProfile.getProfile().getUser().toString());
-			System.out.println("Result : " + testProfile.isSuccess());
-			
-			for (Profile profile : results) {
-				System.out.println(profile.getUser().getEmailId() + " "
-						+ profile.getUser().getContactInfo_fullName() + " "
-						+ profile.getUser().getSimilarityScore());
-				for (String string : profile.getMapSocial().keySet())
-					System.out.println(string);
+
+				System.out.println("Testing : " + testProfile.getProfile().getUser().toString());
+				System.out.println("Result : " + testProfile.isSuccess());
+
+				for (Profile profile : results) {
+					System.out.println(profile.getUser().getEmailId() + " "
+							+ profile.getUser().getContactInfo_fullName() + " "
+							+ profile.getUser().getSimilarityScore());
+					for (String string : profile.getMapSocial().keySet())
+						System.out.println(string);
+				}
+
+
+				System.out.println("###################################\n");
+
 			}
 
-		
-			System.out.println("###################################\n");
+			System.out.println("Success = " + (100.0 * success / testProfiles.size()));
 			
+			System.out.println();
 		}
-		
-		System.out.println("Success = " + (100.0 * success / testProfiles.size()));
-
 	}
 
 	public static int getCount() {
@@ -150,12 +161,12 @@ public class Program {
 		}
 
 		retVal = disambiguator.userDisambiguator(newUser);
-		
+
 		// to be un-commented if the test user has to be added to the cluster
 		/*for (Cluster cluster : clusterList) {
 			ClusterFormation.addToCluster(cluster, newUser);
 		}*/
-		
+
 		return retVal;
 	}
 
@@ -191,7 +202,7 @@ public class Program {
 		return users;
 	}
 
-	private static int count = 100;
+	private static int count = 5000;
 	private static Map<String, ProfileMaster> listMaster = new HashMap<>();
 	private static List<Cluster> clusterCollection = new ArrayList<Cluster>();
 
