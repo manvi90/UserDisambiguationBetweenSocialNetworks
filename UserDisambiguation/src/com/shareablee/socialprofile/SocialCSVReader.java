@@ -53,8 +53,8 @@ public class SocialCSVReader extends CSVReader<SocialMaster> {
 						if (profileMaster.getMapSocial().get(
 								socialMaster.getTypeId()) == null) {
 							profileMaster.getMapSocial()
-							.put(socialMaster.getTypeId(),
-									new ArrayList<>());
+									.put(socialMaster.getTypeId(),
+											new ArrayList<>());
 						}
 						List<SocialMaster> socialList = profileMaster
 								.getMapSocial().get(socialMaster.getTypeId());
@@ -67,8 +67,8 @@ public class SocialCSVReader extends CSVReader<SocialMaster> {
 						if (profile.getMapSocial()
 								.get(socialMaster.getTypeId()) == null) {
 							profile.getMapSocial()
-							.put(socialMaster.getTypeId(),
-									new ArrayList<>());
+									.put(socialMaster.getTypeId(),
+											new ArrayList<>());
 						}
 						List<Social> socialList = profile.getMapSocial().get(
 								socialMaster.getTypeId());
@@ -109,7 +109,7 @@ public class SocialCSVReader extends CSVReader<SocialMaster> {
 		SocialMaster retVal = null;
 
 		String[] inputLineArray = inputLine.split(",");
-		try{
+		try {
 			retVal = new SocialMaster(inputLineArray[0]); // ID
 			retVal.setBio(inputLineArray[1]); // BIO
 
@@ -127,7 +127,7 @@ public class SocialCSVReader extends CSVReader<SocialMaster> {
 			if (inputLineArray.length > 9) {
 				retVal.setUserName(inputLineArray[9]); // Username
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 
 		}
 		return retVal;

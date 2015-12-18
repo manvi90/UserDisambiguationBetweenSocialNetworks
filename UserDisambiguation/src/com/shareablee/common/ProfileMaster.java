@@ -53,7 +53,7 @@ public class ProfileMaster {
 	}
 
 	private UserMaster userMaster;
-	
+
 	// Map of TypeId , SocialMaster Profiles
 	private Map<String, List<SocialMaster>> mapSocial = new HashMap<String, List<SocialMaster>>();
 }

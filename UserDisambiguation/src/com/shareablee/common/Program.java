@@ -32,13 +32,13 @@ public class Program {
 	 */
 	public static void main(String[] args) {
 		CSVReader<UserMaster> ucsvr = new UserCSVReader();
-		List<UserMaster> userMasters = ucsvr.getData("./data/new_primary.csv");
+		List<UserMaster> userMasters = ucsvr.getData(Constants.USERS_FILE_PATH);
 		Map<String, Object> users = fillMasterList(userMasters);
 
 		System.out.println("Read primary data");
 
 		CSVReader<SocialMaster> scsvr = new SocialCSVReader();
-		scsvr.getData("./data/new_social.csv", users);
+		scsvr.getData(Constants.SOCIAL_FILE_PATH, users);
 
 		System.out.println("Read social data");
 
@@ -50,47 +50,47 @@ public class Program {
 
 		// printing cluster details for verification
 		/*
-		int counter = 0;
-		for (Cluster cluster : getClusterCollection()) {
-			System.out.println("Cluster No " + ++counter);
-			for (Profile profile : cluster.getProfiles()) {
-				System.out.println(profile.getUser().getEmailId() + ", "
-						+ profile.getUser().getContactInfo_fullName() + ", "
-						+ profile.getUser().getContactInfo_givenName() + "  "
-						+ profile.getUser().getContactInfo_familyName() + ", "
-						+ profile.getUser().getDemographics_gender());
-			}
-			System.out.println();
-			System.out.println();
-		}
-		 */		
+		 * int counter = 0; for (Cluster cluster : getClusterCollection()) {
+		 * System.out.println("Cluster No " + ++counter); for (Profile profile :
+		 * cluster.getProfiles()) {
+		 * System.out.println(profile.getUser().getEmailId() + ", " +
+		 * profile.getUser().getContactInfo_fullName() + ", " +
+		 * profile.getUser().getContactInfo_givenName() + "  " +
+		 * profile.getUser().getContactInfo_familyName() + ", " +
+		 * profile.getUser().getDemographics_gender()); } System.out.println();
+		 * System.out.println(); }
+		 */
 
-		while(true){
+		Scanner sc = new Scanner(System.in);
+
+		while (true) {
 			System.out.println();
 			System.out.println("Enter choice 0 - for break");
 			int breakCond = 1;
-			Scanner sc = new Scanner(System.in);
 			breakCond = Integer.parseInt(sc.nextLine());
-			if (breakCond == 0){
+			if (breakCond == 0) {
 				break;
 			}
 			Test test = new Test();
 			System.out.println("Read the testing data.");
 			System.out.println("-----------------------");
-			List<TestProfile> testProfiles = test.getTestData("./data/testPrimary.csv");
+			List<TestProfile> testProfiles = test
+					.getTestData(Constants.TEST_FILE_PATH);
 
 			int success = 0;
-			for(TestProfile testProfile : testProfiles) {
-				Set<Profile> results = findIdenticalProfile(testProfile.getProfile());
-				if(results != null) {
-					if ((results.isEmpty() && !testProfile.isMatch()) 
+			for (TestProfile testProfile : testProfiles) {
+				Set<Profile> results = findIdenticalProfile(testProfile
+						.getProfile());
+				if (results != null) {
+					if ((results.isEmpty() && !testProfile.isMatch())
 							|| (!results.isEmpty() && testProfile.isMatch())) {
 						success++;
 						testProfile.setSuccess(true);
 					}
 				}
 
-				System.out.println("Testing : " + testProfile.getProfile().getUser().toString());
+				System.out.println("Testing : "
+						+ testProfile.getProfile().getUser().toString());
 				System.out.println("Result : " + testProfile.isSuccess());
 
 				for (Profile profile : results) {
@@ -101,15 +101,17 @@ public class Program {
 						System.out.println(string);
 				}
 
-
 				System.out.println("###################################\n");
 
 			}
 
-			System.out.println("Success = " + (100.0 * success / testProfiles.size()));
-			
+			System.out.println("Success = "
+					+ (100.0 * success / testProfiles.size()));
+
 			System.out.println();
 		}
+
+		sc.close();
 	}
 
 	public static int getCount() {
@@ -163,9 +165,10 @@ public class Program {
 		retVal = disambiguator.userDisambiguator(newUser);
 
 		// to be un-commented if the test user has to be added to the cluster
-		/*for (Cluster cluster : clusterList) {
-			ClusterFormation.addToCluster(cluster, newUser);
-		}*/
+		/*
+		 * for (Cluster cluster : clusterList) {
+		 * ClusterFormation.addToCluster(cluster, newUser); }
+		 */
 
 		return retVal;
 	}
@@ -202,29 +205,23 @@ public class Program {
 		return users;
 	}
 
-	private static int count = 5000;
+	private static int count = 1000;
 	private static Map<String, ProfileMaster> listMaster = new HashMap<>();
 	private static List<Cluster> clusterCollection = new ArrayList<Cluster>();
 
 	// test code
-	/*private static Profile testProfile = null;
-	static {
-		testProfile = new Profile();
-		testProfile.setUser(new User());
-		testProfile.getUser().setContactInfo_familyName("smith");
-		testProfile.getUser().setContactInfo_fullName("lisa shaver smith");
-		testProfile.getUser().setContactInfo_givenName("lisa");
-		testProfile.getUser().setDemographics_gender(Gender.FEMALE);
-		Set<String> location = new HashSet<>();
-		location.add("debary");
-		location.add("fl");
-		location.add("florida");
-		location.add("united states");
-		location.add("north america");
-		location.add("us");
-		location.add("volusia");
-		// testProfile.setLocation(location);
-		testProfile.getUser().setEmailId("smith@gmail.com");
-		System.out.println("started");
-	}*/
+	/*
+	 * private static Profile testProfile = null; static { testProfile = new
+	 * Profile(); testProfile.setUser(new User());
+	 * testProfile.getUser().setContactInfo_familyName("smith");
+	 * testProfile.getUser().setContactInfo_fullName("lisa shaver smith");
+	 * testProfile.getUser().setContactInfo_givenName("lisa");
+	 * testProfile.getUser().setDemographics_gender(Gender.FEMALE); Set<String>
+	 * location = new HashSet<>(); location.add("debary"); location.add("fl");
+	 * location.add("florida"); location.add("united states");
+	 * location.add("north america"); location.add("us");
+	 * location.add("volusia"); // testProfile.setLocation(location);
+	 * testProfile.getUser().setEmailId("smith@gmail.com");
+	 * System.out.println("started"); }
+	 */
 }

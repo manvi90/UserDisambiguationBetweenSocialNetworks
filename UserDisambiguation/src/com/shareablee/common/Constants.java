@@ -25,4 +25,8 @@ public class Constants {
 	public static double USERID_WEIGHT = 0.15;
 	public static double GENDER_WEIGHT = 0.05;
 	public static double LOCATION_WEIGHT = 0.10;
+
+	public static final String USERS_FILE_PATH = "./data/new_primary.csv";
+	public static final String SOCIAL_FILE_PATH = "./data/new_social.csv";
+	public static final String TEST_FILE_PATH = "./data/testPrimary.csv";
 }

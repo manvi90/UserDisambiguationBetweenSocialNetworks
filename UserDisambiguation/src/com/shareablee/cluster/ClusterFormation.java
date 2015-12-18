@@ -29,7 +29,7 @@ public class ClusterFormation {
 		for (Cluster cluster : Program.getClusterCollection()) {
 			double similarityScore = 0;
 			List<Profile> randomProfiles = new ArrayList<>();
-			// select 25% profiles + 10 randomly from a cluster 
+			// select 25% profiles + 10 randomly from a cluster
 			int limit = cluster.getProfiles().size() / 4 + 10;
 			while (cluster.getProfiles().size() > 0
 					&& randomProfiles.size() < limit) {
@@ -41,7 +41,8 @@ public class ClusterFormation {
 
 			Disambiguator disambiguator = new Disambiguator();
 
-			// measure the similarity between the random profiles and the new incoming profile 
+			// measure the similarity between the random profiles and the new
+			// incoming profile
 			while (randomProfiles.size() > 0) {
 				similarityScore += disambiguator.caluclateSimilarities(profile,
 						randomProfiles.get(0));
@@ -50,7 +51,8 @@ public class ClusterFormation {
 
 			double avgSimilarityScore = similarityScore / count;
 
-			// if the average similarity is greater, selet the cluster as one of the potential candidates
+			// if the average similarity is greater, selet the cluster as one of
+			// the potential candidates
 			if (avgSimilarityScore >= Constants.CLUSTER_THRESHOLD) {
 				retVal.add(cluster);
 

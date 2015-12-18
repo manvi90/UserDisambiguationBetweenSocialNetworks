@@ -8,6 +8,12 @@ import com.shareablee.utils.Demographic;
 import com.shareablee.utils.Location;
 import com.shareablee.utils.Range;
 
+/**
+ * Class for testing
+ * 
+ * @author Madhuri
+ *
+ */
 public class TestCSVReader extends CSVReader<TestProfile> {
 
 	@Override
@@ -19,7 +25,7 @@ public class TestCSVReader extends CSVReader<TestProfile> {
 		Range<Integer> ageRange = new Range<Integer>(0, 100);
 
 		UserMaster userMaster = null;
-		try{
+		try {
 			String[] inputLineArray = inputLine.split(",");
 			userMaster = new UserMaster(inputLineArray[0]); // id
 			if (inputLineArray.length > 1)
@@ -56,65 +62,75 @@ public class TestCSVReader extends CSVReader<TestProfile> {
 			if (inputLineArray.length > 10)
 				locationInfo.setLocationGeneral(inputLineArray[10]); // locationGeneral
 			if (inputLineArray.length > 11)
-				locationInfo.setLocationDeduced_deducedLocation(inputLineArray[11]); // deducedLocation
+				locationInfo
+						.setLocationDeduced_deducedLocation(inputLineArray[11]); // deducedLocation
 			if (inputLineArray.length > 12)
 				locationInfo.setLocationDeduced_likelihood(inputLineArray[12]); // deduced_likelihood
 			if (inputLineArray.length > 13)
 				locationInfo
-				.setLocationDeduced_normalizedLocation(inputLineArray[13]); // normalizedLocation
+						.setLocationDeduced_normalizedLocation(inputLineArray[13]); // normalizedLocation
 			if (inputLineArray.length > 14)
-				locationInfo.setLocationDeduced_city_deduced(inputLineArray[14]); // cityDeduced
+				locationInfo
+						.setLocationDeduced_city_deduced(inputLineArray[14]); // cityDeduced
 			if (inputLineArray.length > 15)
 				locationInfo.setLocationDeduced_city_name(inputLineArray[15]); // cityName
 			if (inputLineArray.length > 16)
 				locationInfo
-				.setLocationDeduced_continent_deduced(inputLineArray[16]); // continentDeduced
+						.setLocationDeduced_continent_deduced(inputLineArray[16]); // continentDeduced
 			if (inputLineArray.length > 17)
-				locationInfo.setLocationDeduced_continent_name(inputLineArray[17]); // continenetName
+				locationInfo
+						.setLocationDeduced_continent_name(inputLineArray[17]); // continenetName
 			if (inputLineArray.length > 18)
-				locationInfo.setLocationDeduced_country_code(inputLineArray[18]); // countryCode
+				locationInfo
+						.setLocationDeduced_country_code(inputLineArray[18]); // countryCode
 			if (inputLineArray.length > 19)
-				locationInfo.setLocationDeduced_country_deduced(inputLineArray[19]); // country_deduced
+				locationInfo
+						.setLocationDeduced_country_deduced(inputLineArray[19]); // country_deduced
 			if (inputLineArray.length > 20)
-				locationInfo.setLocationDeduced_country_name(inputLineArray[20]); // countryName
+				locationInfo
+						.setLocationDeduced_country_name(inputLineArray[20]); // countryName
 			if (inputLineArray.length > 21)
 				locationInfo.setLocationDeduced_county_code(inputLineArray[21]); // countyCode
 			if (inputLineArray.length > 22)
-				locationInfo.setLocationDeduced_county_deduced(inputLineArray[22]); // countyDeduced
+				locationInfo
+						.setLocationDeduced_county_deduced(inputLineArray[22]); // countyDeduced
 			if (inputLineArray.length > 23)
 				locationInfo.setLocationDeduced_county_name(inputLineArray[23]); // countyName
 			if (inputLineArray.length > 24)
 				locationInfo.setLocationDeduced_state_code(inputLineArray[24]); // stateCode
 			if (inputLineArray.length > 25)
-				locationInfo.setLocationDeduced_state_deduced(inputLineArray[25]); // stateDeduced
+				locationInfo
+						.setLocationDeduced_state_deduced(inputLineArray[25]); // stateDeduced
 			if (inputLineArray.length > 26)
 				locationInfo.setLocationDeduced_state_name(inputLineArray[26]); // stateName
-			
-			//Yes/No in the end of csv 
-			//Indicates Desired outputs 
-			if(inputLineArray[inputLineArray.length - 1].equalsIgnoreCase("YES"))
-					retVal.setMatch(true);
-			
+
+			// Yes/No in the end of csv
+			// Indicates Desired outputs
+			if (inputLineArray[inputLineArray.length - 1]
+					.equalsIgnoreCase("YES"))
+				retVal.setMatch(true);
+
 			demoInfo.setLocation(locationInfo);
 			userMaster.setDemographic(demoInfo);
-		} catch (Exception e){
+		} catch (Exception e) {
 
 		}
-		
+
 		User user = new User();
 		user.setContactInfo_familyName(userMaster.getContactInfo_familyName());
 		user.setContactInfo_fullName(userMaster.getContactInfo_fullName());
 		user.setContactInfo_givenName(userMaster.getContactInfo_givenName());
-		user.setDemographics_gender(userMaster.getDemographic().getDemographics_gender());
+		user.setDemographics_gender(userMaster.getDemographic()
+				.getDemographics_gender());
 		user.setEmailId(userMaster.getEmailId());
-		user.setLocation(userMaster.getDemographic().getLocation().getLocationMap());
-		
+		user.setLocation(userMaster.getDemographic().getLocation()
+				.getLocationMap());
+
 		Profile profile = new Profile();
 		profile.setUser(user);
-		
+
 		retVal.setProfile(profile);
 		return retVal;
 	}
 
-	
 }

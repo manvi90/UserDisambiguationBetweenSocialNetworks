@@ -22,7 +22,9 @@ import com.shareablee.utils.Util;
 public class Disambiguator {
 
 	/**
-	 * Method adds the profile details to the various internal maps against which the similarity scores have to be performed
+	 * Method adds the profile details to the various internal maps against
+	 * which the similarity scores have to be performed
+	 * 
 	 * @param profile
 	 */
 	public void addProfile(Profile profile) {
@@ -65,8 +67,9 @@ public class Disambiguator {
 			double count = 0;
 
 			Profile profile = this.emailMap.get(email);
-			/*double emailSim = Util.getDiceSimilarity(profile.getUser()
-					.getEmailId(), newProfile.getUser().getEmailId());
+			/*
+			 * double emailSim = Util.getDiceSimilarity(profile.getUser()
+			 * .getEmailId(), newProfile.getUser().getEmailId());
 			 */
 			double emailSim = 0;
 			double emailWithoutDomainSim = 0;
@@ -158,8 +161,7 @@ public class Disambiguator {
 		Set<String> matchingEmailList = new HashSet<>();
 		for (String existingEmail : this.emailMap.keySet()) {
 			double simScore = Util.getDiceSimilarity(newProfile.getUser()
-						.getEmailId().split("@")[0],
-						existingEmail.split("@")[0]);
+					.getEmailId().split("@")[0], existingEmail.split("@")[0]);
 
 			if (simScore >= Constants.EMAIL_THRESHOLD) {
 				matchingEmailList.add(existingEmail);
@@ -187,8 +189,8 @@ public class Disambiguator {
 								.getContactInfo_givenName(), existingFirstName);
 
 				if (firstnameSimScore >= Constants.FIRST_NAME_THRESHOLD) {
-					matchingEmailList.addAll(this.firstNameMap.get(
-							existingFirstName));
+					matchingEmailList.addAll(this.firstNameMap
+							.get(existingFirstName));
 				}
 			} catch (Exception ex) {
 				System.err.println("First name : " + count + ": "
@@ -216,8 +218,8 @@ public class Disambiguator {
 						.getJaroWinklerDistanceSimilarity(newProfile.getUser()
 								.getContactInfo_familyName(), existingLastName);
 				if (lastnameSimScore >= Constants.LAST_NAME_THRESHOLD) {
-					matchingEmailList.addAll(this.lastNameMap.get(
-							existingLastName));
+					matchingEmailList.addAll(this.lastNameMap
+							.get(existingLastName));
 				}
 			} catch (Exception ex) {
 				System.err.println("Second name " + count + ": "
@@ -408,8 +410,7 @@ public class Disambiguator {
 	 * @param profile2
 	 * @return Similarity score between two profiles
 	 */
-	public double caluclateSimilarities(Profile profile1,
-			Profile profile2) {
+	public double caluclateSimilarities(Profile profile1, Profile profile2) {
 		double count = 0;
 		double maxSimScore = 0.0;
 
