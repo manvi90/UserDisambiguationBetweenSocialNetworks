@@ -85,13 +85,15 @@ public class Disambiguator {
 					&& !newProfile.getUser().getEmailId().isEmpty()) {
 				count += Constants.EMAIL_WEIGHT;
 			}
-
+			
+			//Calculate the similarity without the domain of email id
 			if (emailSim < Constants.EMAIL_THRESHOLD) {
 				emailWithoutDomainSim = Util.getDiceSimilarity(profile
 						.getUser().getEmailId().split("@")[0], newProfile
 						.getUser().getEmailId().split("@")[0]);
 			}
-
+			
+			//Calculate the similarity for Last Name
 			if (profile.getUser().getContactInfo_givenName() != null
 					&& !profile.getUser().getContactInfo_givenName().isEmpty()
 					&& newProfile.getUser().getContactInfo_givenName() != null
@@ -103,6 +105,7 @@ public class Disambiguator {
 						.getUser().getContactInfo_givenName());
 			}
 
+			//Calculate the similarity for First Name
 			if (profile.getUser().getContactInfo_familyName() != null
 					&& !profile.getUser().getContactInfo_familyName().isEmpty()
 					&& newProfile.getUser().getContactInfo_familyName() != null
@@ -114,6 +117,7 @@ public class Disambiguator {
 						.getUser().getContactInfo_familyName());
 			}
 
+			//Calculate the similarity for User Id
 			unameSim = calculateUserIdSimilarityScore(newProfile, profile);
 			if (unameSim > 0)
 				count += Constants.USERID_WEIGHT;
@@ -124,7 +128,8 @@ public class Disambiguator {
 				genderSim = profile.getUser().getDemographics_gender() == newProfile
 						.getUser().getDemographics_gender() ? 1.0 : 0.0;
 			}
-
+			
+			//Calculate the similarity for the location
 			if (profile.getUser().getLocation().size() != 0
 					&& newProfile.getUser().getLocation().size() != 0) {
 				count += Constants.LOCATION_WEIGHT;
@@ -132,6 +137,7 @@ public class Disambiguator {
 						profile);
 			}
 
+			//Calculate the weighted similarity score
 			double simScore = Constants.EMAIL_WEIGHT
 					* Math.max(emailSim, emailWithoutDomainSim) / count
 					+ Constants.FIRST_NAME_WEIGHT * fnameSim / count
@@ -240,7 +246,6 @@ public class Disambiguator {
 	 */
 	private double calculateLocationSimilarityScore(Profile newProfile,
 			Profile profile) {
-		// need to check for location
 		double locationSim = 0.0;
 		int count = 0;
 		for (String string : profile.getUser().getLocation()) {
@@ -249,6 +254,8 @@ public class Disambiguator {
 			}
 		}
 
+		//Location Similarity calculated as Intersection of matching location 
+		// divided by the minimum length of the two location string
 		if (count > 0) {
 			locationSim = count
 					* 1.0
@@ -379,6 +386,8 @@ public class Disambiguator {
 		for (String socialMediaType : existingProfile.getMapSocial().keySet()) {
 			for (Social social : existingProfile.getMapSocial().get(
 					socialMediaType)) {
+				
+				//Check the simalarity with the pattern
 				for (char c : Constants.PATTERN) {
 					String nameToCompare1 = newProfile.getUser()
 							.getContactInfo_givenName()
